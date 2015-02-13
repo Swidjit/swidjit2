@@ -16,5 +16,11 @@ class ItemsController < ApplicationController
     end
   end
 
+  def upload_file
+    @item = Item.unscoped.find(params[:id])
+    @item.images << Image.create(:pic => URI.parse(URI.unescape(params['url'])))
+
+  end
+
 
 end

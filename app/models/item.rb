@@ -4,6 +4,7 @@ class Item < ActiveRecord::Base
 
   has_many :watches
   has_many :notifications
+  has_many :images
 
   acts_as_taggable_on :topic
 

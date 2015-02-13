@@ -1,0 +1,9 @@
+-if item.images.present?
+  -item.images.each do |i|
+    %div{:id => "image-#{i.id}"}
+      =image_tag i.pic.url(:medium)
+      .delete
+        =link_to item_image_path(item, i), :method => "delete", :remote => :true do
+          %i.fi-trash
+-else
+  =image_tag ('meal-placeholder.png')

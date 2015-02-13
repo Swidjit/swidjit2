@@ -9,8 +9,22 @@
       =link_to item_watches_path(@freepile.id), :remote => :true, :method=>:post do
         %button.watch watch
   =render :partial => 'items/tags', :locals=>{item:@freepile}
+  #item-photo
+    =render :partial => 'items/photo', :locals=>{item:@freepile}
+  =s3_uploader_form callback_url: upload_file_item_path(@freepile), remote: :true, callback_param: "item[image_url]", id: "s3-uploader" do
+    %div#test
+      .wrapper
+        =file_field_tag :file
+      %button upload image
+  %script#template-upload{:type => "text/x-tmpl"}
+    .upload{:id => "file-{%=o.unique_id%}"}
+      {%=o.name%}
+      .progress
+        .bar{:style => "width: 0%"}
 :javascript
   $(document).on('ready page:load', function(){
+
+    $("#s3-uploader").S3Uploader();
     coord = "#{@freepile.latlng}";
     coords = coord.split(",");
     latlng = new google.maps.LatLng(coords[0],coords[1]);
