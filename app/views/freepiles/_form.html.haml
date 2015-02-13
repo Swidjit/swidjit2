@@ -5,10 +5,23 @@
   =f.text_field :condition
   =f.text_field :address, :class => 'address', :placeholder => "street address for your meal"
   =f.hidden_field :latlng, :id=>"meal-latlng"
-  =f.text_field :topic_list
+  =f.text_field :topic_list, :input_html => {:class => 'item_tags'}
   =f.submit
 
 :javascript
+
+    $("#freepile_topic_list").tokenInput(
+      "#{autocomplete_topic_search_items_path}", {
+        preventDuplicates:"true",
+        minChars: 2,
+        theme: "facebook",
+        allowFreeTagging: true,
+        prePopulate: $("#meal_dietary_list").data("pre"),
+        onAdd: function(item) {
+          item.name = item.name.replace("'","");
+        }
+      }
+    );
     var autocomplete, input, map, options;
     input = $('.address');
     options = {
