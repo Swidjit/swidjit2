@@ -18,14 +18,9 @@
 
 @import 'foundation-icons';
 
-.button-icon {
-	font-size: 3em;
-}
+#new-item {
+      z-index: 100 !important; }
 
-.button-text {
-	font-size: 1.5em;
-	display: inline;
-	position: relative;
-	top: -.5em;
-	padding-left: .5em;
+.reveal-modal-bg {
+  z-index: 99 !important;
 }

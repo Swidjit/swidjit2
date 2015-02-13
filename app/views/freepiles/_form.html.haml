@@ -1,5 +1,29 @@
+#map-canvas
 =form_for :freepile, :url=>freepiles_path, :method => :post do |f|
   =f.text_field :title
   =f.text_area :details
   =f.text_field :condition
+  =f.text_field :address, :class => 'address', :placeholder => "street address for your meal"
+  =f.hidden_field :latlng, :id=>"meal-latlng"
   =f.submit
+
+:javascript
+    var autocomplete, input, map, options;
+    input = $('.address');
+    options = {
+      language: 'en-GB',
+      center: new google.maps.LatLng(42.446877, -76.505407),
+      zoom: 11
+    };
+    autocomplete = new google.maps.places.Autocomplete(input[0], options);
+    map = new google.maps.Map(document.getElementById('map-canvas'), options);
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+
+      var place = autocomplete.getPlace();
+      $('#meal-latlng').attr("value",place.geometry.location.k+","+place.geometry.location.C);
+
+    })
+
+    google.maps.event.addListener(map, 'bounds_changed', function() {
+      autocomplete.bindTo('bounds', map);
+    });

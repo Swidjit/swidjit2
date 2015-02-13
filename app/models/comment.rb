@@ -1,0 +1,3 @@
+class Comment < Item
+
+end
