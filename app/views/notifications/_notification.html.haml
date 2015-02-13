@@ -1,0 +1,5 @@
+.notification
+  -case notification.action
+    -when 'updated'
+      =render :partial => 'notifications/update', :locals=>{notification:notification}
+

@@ -1,7 +1,7 @@
 class FreepilesController < ApplicationController
 
   def create
-    Freepile.create(item_params)
+    current_user.items << Freepile.create(item_params)
 
   end
 

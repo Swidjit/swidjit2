@@ -19,5 +19,9 @@
     =render :partial => 'layouts/head'
     %p.notice= notice
     %p.alert= alert
-    = yield
+    .row
+      .large-3.columns
+        =render @notifications
+      .large-9.columns
+        = yield
     =render :partial => 'layouts/footer'
