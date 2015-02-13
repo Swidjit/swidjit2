@@ -2,13 +2,13 @@
   %button new freepile
 =render @freepiles
 
-#new-item.reveal-modal{:reveal_id => ""}
-  =form_for :freepile, :url=>freepiles_path, :method => :post do |f|
-    =f.text_field :title
-    =f.text_area :details
-    =f.text_field :condition
-    =f.submit
+
 :javascript
-  $('#new').on("click", function() {
-    $('#new-item').foundation("reveal","open");
+  $(document).on('ready page:load', function(){
+    $("#new-item").html("#{escape_javascript render :partial => 'freepiles/form'}");
+    $('#new').on("click", function() {
+      $('#new-item').foundation("reveal","open");
+    });
+
+
   });
