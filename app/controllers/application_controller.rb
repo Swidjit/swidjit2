@@ -6,6 +6,9 @@ class ApplicationController < ActionController::Base
   before_filter :get_notifications
 
   def get_notifications
-    @notifications = Notification.all
+    if user_signed_in?
+      @watching = current_user.watches.map(&:item_id)
+      @notifications = Notification.where(:item_id => @watching)
+    end
   end
 end
