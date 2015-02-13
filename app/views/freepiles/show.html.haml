@@ -3,11 +3,26 @@
   #map-canvas{:style=>"height:300px;"}
   -if user_signed_in?
     -if current_user.watches.where(:item_id=>@freepile.id).present?
-      =link_to item_watches_path(@freepile.id), :remote => :true, :method=>:post do
+      =link_to item_watches_path(@freepile.id), :remote => :true, :method=>:@freepile do
         %button.watch unwatch
     -else
-      =link_to item_watches_path(@freepile.id), :remote => :true, :method=>:post do
+      =link_to item_watches_path(@freepile.id), :remote => :true, :method=>:@freepile do
         %button.watch watch
+
+    #reactions
+      =link_to create_or_destroy_reaction_item_path(@freepile.id, :type => "like"),  :remote=>"true",:method => "post" do
+        .like
+          %i.fi-like
+          .count=@freepile.reactions.liked.size
+      =link_to create_or_destroy_reaction_item_path(@freepile.id, :type => "love"),  :remote=>"true",:method => "post" do
+        .love
+          %i.fi-heart
+          .count=@freepile.reactions.loved.size
+      =link_to create_or_destroy_reaction_item_path(@freepile.id, :type => "share"),  {:remote=>"true",:method => "post"} do
+        .share
+          %i.fi-share
+          .count=@freepile.reactions.shared.size
+
   =render :partial => 'items/tags', :locals=>{item:@freepile}
   #item-photo
     =render :partial => 'items/photo', :locals=>{item:@freepile}

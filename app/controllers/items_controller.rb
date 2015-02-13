@@ -22,5 +22,61 @@ class ItemsController < ApplicationController
 
   end
 
+  def create_or_destroy_reaction
+    @item = Item.find(params[:id])
+    cancelled = false;
+    @reaction = Reaction.where(:item_id => params[:id], :user_id => current_user.id, :reaction_type => params[:type]).first
+    if @reaction.present?
+      Reaction.destroy(@reaction.id)
+      cancelled = true
+    else
+      @reaction = Reaction.create(:item_id => params[:id], :user_id => current_user.id, :reaction_type => params[:type])
+    end
+    case params[:type]
+      when 'like'
+        if cancelled
+          @item.update_attribute(:importance, @item.importance+1)
+        else
+          @item.update_attribute(:importance, @item.importance+1)
+        end
 
+        @count = @item.reactions.liked.size
+        @class = "like"
+        render 'reactions/liked'
+      when 'love'
+        if cancelled
+          @item.update_attribute(:importance, @item.importance-3)
+        else
+          @item.update_attribute(:importance, @item.importance+3)
+        end
+
+
+        @count = @item.reactions.loved.size
+        @class = "love"
+        render 'reactions/liked'
+      when 'share'
+        if cancelled
+          @item.update_attribute(:importance, @item.importance-5)
+        else
+          @item.update_attribute(:importance, @item.importance+5)
+        end
+        @count = @item.reactions.shared.size
+        @class = "share"
+        render 'reactions/liked'
+      when 'off-topic'
+        @count = @item.reactions.offensive.size + @item.reactions.off_topic.size
+        if @count >= 3
+          @item.update_attribute(:status, 'flagged')
+        end
+        @class = "flag"
+        render 'reactions/flagged'
+      when 'offensive'
+        @count = @item.reactions.offensive.size + @item.reactions.off_topic.size
+        if @count >= 3
+          @item.update_attribute(:status, 'flagged')
+        end
+        @class = "flag"
+        render 'reactions/flagged'
+    end
+  end
 end

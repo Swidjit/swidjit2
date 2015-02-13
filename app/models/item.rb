@@ -2,9 +2,10 @@ class Item < ActiveRecord::Base
 
   belongs_to :user
 
-  has_many :watches
-  has_many :notifications
-  has_many :images
+  has_many :watches, :dependent => :delete_all
+  has_many :notifications, :dependent => :delete_all
+  has_many :images, :dependent => :delete_all
+  has_many :reactions, :dependent => :delete_all
 
   acts_as_taggable_on :topic
 

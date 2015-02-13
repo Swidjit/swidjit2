@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     end
     member do
       post 'upload_file'
+      post 'create_or_destroy_reaction'
     end
   end
   resources :freepiles
