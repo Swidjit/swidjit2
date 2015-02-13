@@ -1,6 +1,13 @@
-=@freepile.title
-#map-canvas{:style=>"height:300px;"}
-
+%div{:id=>"item-#{@freepile.id}"}
+  =@freepile.title
+  #map-canvas{:style=>"height:300px;"}
+  -if user_signed_in?
+    -if current_user.watches.where(:item_id=>@freepile.id).present?
+      =link_to item_watches_path(@freepile.id), :remote => :true, :method=>:post do
+        %button.watch unwatch
+    -else
+      =link_to item_watches_path(@freepile.id), :remote => :true, :method=>:post do
+        %button.watch watch
 :javascript
   $(document).on('ready page:load', function(){
     coord = "#{@freepile.latlng}";
