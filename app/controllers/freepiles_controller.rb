@@ -1,7 +1,10 @@
 class FreepilesController < ApplicationController
 
   def create
-    current_user.items << Freepile.create(item_params)
+    item = Freepile.create(item_params)
+    current_user.items << item
+    item.topic_list = item_params[:topic_list]
+    item.save
 
   end
 
@@ -10,12 +13,11 @@ class FreepilesController < ApplicationController
   end
 
   def item_params
-    params.require(:freepile).permit(:title, :details, :condition, :address, :latlng)
+    params.require(:freepile).permit(:title, :details, :condition, :address, :latlng, :topic_list)
   end
 
   def index
     @freepiles = Freepile.all
-    puts @freepiles
   end
 
   def show

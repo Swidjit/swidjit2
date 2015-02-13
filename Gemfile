@@ -19,7 +19,7 @@ gem 'formtastic', '~> 3.0'
 gem 'foundation-rails', '5.4.5'
 gem 'foundation-icons-sass-rails'
 gem 'devise'
-
+gem 'acts-as-taggable-on', '~> 3.4'
 group :assets do
   gem 'sass-rails', '~> 4.0.3'
   gem 'coffee-rails', '~> 4.0.0'

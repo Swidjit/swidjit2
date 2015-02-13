@@ -5,6 +5,8 @@ class Item < ActiveRecord::Base
   has_many :watches
   has_many :notifications
 
+  acts_as_taggable_on :topic
+
   after_save :notify, :only => [:update]
 
   def notify

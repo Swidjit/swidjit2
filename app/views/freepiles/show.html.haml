@@ -8,6 +8,7 @@
     -else
       =link_to item_watches_path(@freepile.id), :remote => :true, :method=>:post do
         %button.watch watch
+  =render :partial => 'items/tags', :locals=>{item:@freepile}
 :javascript
   $(document).on('ready page:load', function(){
     coord = "#{@freepile.latlng}";
