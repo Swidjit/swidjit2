@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
+
+  resources :users, :only => [:show]
   resources :items do
     resources :watches, :only => [:create]
     resources :images, :only => [:destroy]
