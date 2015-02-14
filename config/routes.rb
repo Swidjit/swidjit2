@@ -15,6 +15,11 @@ Rails.application.routes.draw do
   end
   resources :freepiles
   resources :topics
+  resources :questions do
+    resource :response, :only => [:create, :destroy]
+  end
+
+
   resources :comments, :only => [:create, :destroy]
   root :to => 'pages#home'
   get 'pages/:page_name' => 'pages#index', :as => :pages

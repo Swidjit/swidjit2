@@ -9,5 +9,6 @@ class User < ActiveRecord::Base
   has_many :reactions, :dependent => :delete_all
 
   has_many :comments, :dependent => :delete_all
+  has_many :responses
 
 end

@@ -1,0 +1,78 @@
+%div{:id=>"item-#{@item.id}"}
+  =@item.details
+  -answer_id = -1
+  -if current_user.responses.where(:question_id => @item.id)
+    -@answer_id = current_user.responses.where(:question_id => @item.id).first.answer_id
+  -@item.answers.each do |a|
+    .choose-answer{:value=>a.id, :class => a.id==@answer_id ? "selected" : "unselected"}
+      =a.answer
+  #map-canvas{:style=>"height:300px;"}
+  -if user_signed_in?
+    -if current_user.watches.where(:item_id=>@item.id).present?
+      =link_to item_watches_path(@item.id), :remote => :true, :method=>:@item do
+        %button.watch unwatch
+    -else
+      =link_to item_watches_path(@item.id), :remote => :true, :method=>:@item do
+        %button.watch watch
+
+    #reactions
+      =link_to create_or_destroy_reaction_item_path(@item.id, :type => "like"),  :remote=>"true",:method => "post" do
+        .like
+          %i.fi-like
+          .count=@item.reactions.liked.size
+      =link_to create_or_destroy_reaction_item_path(@item.id, :type => "love"),  :remote=>"true",:method => "post" do
+        .love
+          %i.fi-heart
+          .count=@item.reactions.loved.size
+      =link_to create_or_destroy_reaction_item_path(@item.id, :type => "share"),  {:remote=>"true",:method => "post"} do
+        .share
+          %i.fi-share
+          .count=@item.reactions.shared.size
+
+  =render :partial => 'items/tags', :locals=>{item:@item}
+  #item-photo
+    =render :partial => 'items/photo', :locals=>{item:@item}
+  =s3_uploader_form callback_url: upload_file_item_path(@item), remote: :true, callback_param: "item[image_url]", id: "s3-uploader" do
+    %div#test
+      .wrapper
+        =file_field_tag :file
+      %button upload image
+  %script#template-upload{:type => "text/x-tmpl"}
+    .upload{:id => "file-{%=o.unique_id%}"}
+      {%=o.name%}
+      .progress
+        .bar{:style => "width: 0%"}
+
+  #comments
+    %h5 Comments
+    .comments
+      = render :partial => 'comments/comment', :collection => @comments, :as => :comment
+    = render :partial => 'comments/form', :locals => { :comment => @new_comment }
+:javascript
+  $(document).on('ready page:load', function(){
+
+    $("#s3-uploader").S3Uploader();
+    coord = "#{@item.latlng}";
+    coords = coord.split(",");
+    latlng = new google.maps.LatLng(coords[0],coords[1]);
+    options = {
+      language: 'en-GB',
+      center: latlng,
+      zoom: 14
+    };
+    map = new google.maps.Map(document.getElementById('map-canvas'), options);
+    marker = new google.maps.Marker({
+      position:latlng,
+      map: map,
+      title: "#{@item.title}"
+    });
+
+    $('.choose-answer').on('click', function() {
+      console.log($('.choose-answer').attr("value"));
+      var data = {
+        answer_id: $('.choose-answer').attr("value")
+      };
+      console.log(data);
+      $.post("#{question_response_path(@item)}", data);
+    });
+  });

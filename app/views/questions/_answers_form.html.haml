@@ -1,0 +1,17 @@
+#answers-form
+  %p let's start with the question you wanted answered.  depending on what kind of question you select, you will get a chance to supply answers in the next step
+  .answers
+    =form_for @item, :url=>question_path(@item), :method => :patch do |f|
+      =f.fields_for :answers do |f1|
+        =f1.text_field :answer, :class => "answer"
+      #new-question
+        .button.tiny new question
+      =f.submit "save questions", :class=>"button"
+
+
+:javascript
+  $('.answer').hide();
+  $('.answer:lt(2)').show();
+  $('#new-question').on('click', function() {
+    $('.answer:hidden:first').show();
+  });

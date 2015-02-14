@@ -111,4 +111,15 @@
   margin-top: 0;
 }
 
+.choose-answer {
+  padding: 5px;
+  background-color: #ccc;
+  margin-bottom: 5px;
+}
+.choose-answer:hover {
+  background-color: #c0c;
+}
 
+.selected {
+  background-color: red;
+}
