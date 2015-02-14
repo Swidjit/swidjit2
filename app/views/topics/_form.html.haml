@@ -1,0 +1,4 @@
+=form_for :topic, :url=>comments_path, :method => :post do |f|
+  =f.text_area :details
+  =f.text_field :topic_list
+  =f.submit

@@ -23,6 +23,9 @@ gem 'acts-as-taggable-on', '~> 3.4'
 gem 'paperclip', :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'aws-sdk', '< 2.0'
 gem 's3_direct_upload'
+
+gem 'acts_as_commentable_with_threading'
+
 group :assets do
   gem 'sass-rails', '~> 4.0.3'
   gem 'coffee-rails', '~> 4.0.0'

@@ -36,6 +36,12 @@
       {%=o.name%}
       .progress
         .bar{:style => "width: 0%"}
+
+  #comments
+    %h5 Comments
+    .comments
+      = render :partial => 'comments/comment', :collection => @comments, :as => :comment
+    = render :partial => 'comments/form', :locals => { :comment => @new_comment }
 :javascript
   $(document).on('ready page:load', function(){
 

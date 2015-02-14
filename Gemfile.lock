@@ -39,7 +39,13 @@ GEM
       tzinfo (~> 1.1)
     acts-as-taggable-on (3.4.3)
       activerecord (>= 3.2, < 5)
+    acts_as_commentable_with_threading (2.0.0)
+      activerecord (>= 4.0)
+      activesupport (>= 4.0)
+      awesome_nested_set (>= 3.0)
     arel (5.0.1.20140414130214)
+    awesome_nested_set (3.0.1)
+      activerecord (>= 4.0.0, < 5)
     aws-sdk (1.61.0)
       aws-sdk-v1 (= 1.61.0)
     aws-sdk-v1 (1.61.0)
@@ -182,6 +188,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on (~> 3.4)
+  acts_as_commentable_with_threading
   aws-sdk (< 2.0)
   coffee-rails (~> 4.0.0)
   devise

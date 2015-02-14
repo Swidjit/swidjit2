@@ -14,7 +14,8 @@ Rails.application.routes.draw do
     end
   end
   resources :freepiles
-  resources :comments
+  resources :topics
+  resources :comments, :only => [:create, :destroy]
   root :to => 'pages#home'
   get 'pages/:page_name' => 'pages#index', :as => :pages
 end

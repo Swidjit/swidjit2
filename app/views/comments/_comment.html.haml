@@ -1,2 +1,21 @@
-=link_to comment.details, comment_path(comment)
-%br
+.comment-block[comment]
+  .comment.clearfix
+
+    .comment-left
+      image
+
+    .comment-content
+      .comment-right
+        %span.comment-date
+          = comment.created_at.strftime("%B %d, %Y at %l:%M %p")
+          -if user_signed_in? && comment.user == current_user
+            =link_to comment_path(comment), :method => :delete, :remote => :true do
+              %i.fi-trash
+            =link_to "#",:id => "edit-comment-#{comment.id}", :class => 'edit-comment' do
+              %i.fi-pencil
+        %span.comment-author
+          =link_to "@#{comment.user.email}", user_path(comment.user)
+          says
+          =comment.body
+      .edit-message{:style=>"display:none;"}
+        click away from comment to save, or ESC to cancel

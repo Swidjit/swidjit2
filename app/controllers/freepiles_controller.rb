@@ -6,6 +6,7 @@ class FreepilesController < ApplicationController
     item.topic_list = item_params[:topic_list]
     item.save
 
+
   end
 
   def new
@@ -22,6 +23,8 @@ class FreepilesController < ApplicationController
 
   def show
     @freepile = Freepile.find(params[:id])
+    @comments = @freepile.comment_threads.order('created_at desc')
+    @new_comment = Comment.build_from(@freepile, current_user.id, "") if user_signed_in?
   end
 
 end

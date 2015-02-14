@@ -1,7 +1,7 @@
 #new-item.reveal-modal{:reveal_id => ""}
   %h4 add new swidjit
   .button{:value=>"freepile"} freepile
-  .button{:value=>"comment"} comment
+  .button{:value=>"topic"} topic
 
 :javascript
   $(document).on('ready page:load', function(){
@@ -10,8 +10,8 @@
         case 'freepile':
           $("#new-item").html("#{escape_javascript render :partial => 'freepiles/form'}");
           break;
-        case 'comment':
-          $("#new-item").html("#{escape_javascript render :partial => 'comments/form'}");
+        case 'topic':
+          $("#new-item").html("#{escape_javascript render :partial => 'topics/form'}");
           break;
       };
     });

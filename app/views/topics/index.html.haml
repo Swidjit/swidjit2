@@ -1,0 +1,14 @@
+#new
+  %button new comment
+=render @topic
+
+
+:javascript
+  $(document).on('ready page:load', function(){
+    $("#new-item").html("#{escape_javascript render :partial => 'topics/form'}");
+    $('#new').on("click", function() {
+      $('#new-item').foundation("reveal","open");
+    });
+
+
+  });

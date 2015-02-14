@@ -7,6 +7,8 @@ class Item < ActiveRecord::Base
   has_many :images, :dependent => :delete_all
   has_many :reactions, :dependent => :delete_all
 
+  acts_as_commentable
+
   acts_as_taggable_on :topic
 
   after_save :notify, :only => [:update]
