@@ -84,6 +84,9 @@ ActiveRecord::Schema.define(version: 20150214135804) do
     t.integer  "user_id"
     t.integer  "question_id"
     t.integer  "answer_id"
+    t.string   "str"
+    t.integer  "val"
+    t.boolean  "public",      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

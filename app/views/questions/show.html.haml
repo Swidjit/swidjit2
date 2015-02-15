@@ -1,6 +1,7 @@
 %div{:id=>"item-#{@item.id}"}
   #responses
-    -if current_user.responses.where(:question_id => @item.id).present?
+    -@response = current_user.responses.where(:question_id => @item.id).first
+    -if @response.present?
       -@answer_id = nil
       -@res = current_user.responses.where(:question_id => @item.id).first
       -if @res.present?
@@ -75,7 +76,6 @@
       var data = {
         answer_id: $(this).attr("value")
       };
-      console.log(data);
       $.post("#{question_response_path(@item)}", data);
     });
   });

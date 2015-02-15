@@ -1,6 +1,13 @@
--@item.answers.each do |a|
-  .answer-pct
-    #{((@item.responses.where(:answer_id => a.id).count/@item.responses.count.to_f) * 100).to_i}%
-  .choose-answer[a]{:value=>a.id, :class => a.id==@answer_id ? "selected" : "unselected"}
-    =a.answer
-  .clear
+-case @item.condition
+  -when 'multiple choice'
+    -@item.answers.each do |a|
+      .answer-pct
+        #{((@item.responses.where(:answer_id => a.id).count/@item.responses.count.to_f) * 100).to_i}%
+      .choose-answer[a]{:value=>a.id, :class => a.id==@answer_id ? "selected" : "unselected"}
+        =a.answer
+      .clear
+  -when 'number'
+    =@item.responses.sum(:val)/@item.responses.count.to_f
+    =form_for @response, :url => question_response_path(@item), :method => :post, :remote => :true do |f|
+      =f.number_field :val
+      =f.submit "update your response"

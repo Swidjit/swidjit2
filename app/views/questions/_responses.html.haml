@@ -1,4 +1,10 @@
--@item.answers.each do |a|
-  .choose-answer[a]{:value=>a.id, :class => a.id==@answer_id ? "selected" : "unselected"}
-    =a.answer
-  .clear
+-case @item.condition
+  -when 'multiple choice'
+    -@item.answers.each do |a|
+      .choose-answer[a]{:value=>a.id, :class => a.id==@answer_id ? "selected" : "unselected"}
+        =a.answer
+      .clear
+  -when 'number'
+    =form_for :response, :url => question_response_path(@item), :method => :post, :remote => :true do |f|
+      =f.number_field :val
+      =f.submit "submit"
