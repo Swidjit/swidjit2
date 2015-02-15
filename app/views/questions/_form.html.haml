@@ -3,7 +3,7 @@
   =form_for :question, :url=>questions_path, :method => :post, :remote => :true do |f|
     =f.text_field :title
     =f.text_area :details
-    =f.select :condition, ["multiple choice", "value", "open"]
+    =f.select :condition, ["multiple choice", "number", "open"]
     =f.text_field :topic_list, :input_html => {:class => 'item_tags'}
     =f.submit
 

@@ -11,3 +11,9 @@
     =form_for @response, :url => question_response_path(@item), :method => :post, :remote => :true do |f|
       =f.number_field :val
       =f.submit "update your response"
+  -when 'open'
+    =form_for @response, :url => question_response_path(@item), :method => :post, :remote => :true do |f|
+      =f.text_field :str
+      =f.submit "update your response"
+    -@item.responses.each do |r|
+      =r.str
