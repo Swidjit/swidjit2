@@ -1,0 +1,6 @@
+-@item.answers.each do |a|
+  .answer-pct
+    #{((@item.responses.where(:answer_id => a.id).count/@item.responses.count.to_f) * 100).to_i}%
+  .choose-answer[a]{:value=>a.id, :class => a.id==@answer_id ? "selected" : "unselected"}
+    =a.answer
+  .clear

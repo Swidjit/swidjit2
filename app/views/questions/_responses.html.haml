@@ -1,0 +1,4 @@
+-@item.answers.each do |a|
+  .choose-answer[a]{:value=>a.id, :class => a.id==@answer_id ? "selected" : "unselected"}
+    =a.answer
+  .clear

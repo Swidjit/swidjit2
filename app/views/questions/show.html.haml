@@ -1,14 +1,14 @@
 %div{:id=>"item-#{@item.id}"}
-  =@item.details
-  -if current_user.responses.where(:question_id => @item.id)
-    -@answer_id = nil
-    -@res = current_user.responses.where(:question_id => @item.id).first
-    -if @res.present?
-      -@answer_id = @res.answer_id
+  #responses
+    -if current_user.responses.where(:question_id => @item.id).present?
+      -@answer_id = nil
+      -@res = current_user.responses.where(:question_id => @item.id).first
+      -if @res.present?
+        -@answer_id = @res.answer_id
+      =render :partial => 'questions/responses_after_response'
 
-  -@item.answers.each do |a|
-    .choose-answer[a]{:value=>a.id, :class => a.id==@answer_id ? "selected" : "unselected"}
-      =a.answer
+    -else
+      =render :partial => 'questions/responses'
   #map-canvas{:style=>"height:300px;"}
   -if user_signed_in?
     -if current_user.watches.where(:item_id=>@item.id).present?

@@ -1,3 +1,1 @@
-$('.choose-answer').removeClass("selected");
-$('#answer_#{@id}').addClass("selected");
-
+$('#responses').html("#{j render :partial => 'questions/responses_after_response'}")

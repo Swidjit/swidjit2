@@ -113,7 +113,6 @@
 
 .choose-answer {
   padding: 5px;
-  background-color: #ccc;
   margin-bottom: 5px;
 }
 .choose-answer:hover {
@@ -122,4 +121,9 @@
 
 .selected {
   background-color: red;
+}
+
+.answer-pct, .choose-answer {
+  display: inline;
+  line-height: 40px;
 }
