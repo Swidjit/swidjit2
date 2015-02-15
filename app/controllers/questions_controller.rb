@@ -14,6 +14,7 @@ class QuestionsController < ApplicationController
   def update
     @item = Question.find(params[:id])
     @item.update_attributes(item_params)
+    @item.answers.where(:answer => "").delete_all
   end
 
   def new

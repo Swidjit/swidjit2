@@ -1,10 +1,13 @@
 %div{:id=>"item-#{@item.id}"}
   =@item.details
-  -answer_id = -1
   -if current_user.responses.where(:question_id => @item.id)
-    -@answer_id = current_user.responses.where(:question_id => @item.id).first.answer_id
+    -@answer_id = nil
+    -@res = current_user.responses.where(:question_id => @item.id).first
+    -if @res.present?
+      -@answer_id = @res.answer_id
+
   -@item.answers.each do |a|
-    .choose-answer{:value=>a.id, :class => a.id==@answer_id ? "selected" : "unselected"}
+    .choose-answer[a]{:value=>a.id, :class => a.id==@answer_id ? "selected" : "unselected"}
       =a.answer
   #map-canvas{:style=>"height:300px;"}
   -if user_signed_in?
@@ -70,7 +73,7 @@
     $('.choose-answer').on('click', function() {
       console.log($('.choose-answer').attr("value"));
       var data = {
-        answer_id: $('.choose-answer').attr("value")
+        answer_id: $(this).attr("value")
       };
       console.log(data);
       $.post("#{question_response_path(@item)}", data);
