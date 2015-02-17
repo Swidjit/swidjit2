@@ -2,11 +2,21 @@ class ItemsController < ApplicationController
 
 
   def index
-    @freepiles = Item.all
+    @items = Item.all
+    if params.has_key?(:cat)
+      @events = Item.joins(:occurrences).where("items.type = ?",params[:cat].camelcase)
+    else
+      @events = Item.joins(:occurrences).order('occurrences.dt ASC')
+    end
     if params.has_key?(:topic)
       tags = params[:topic].split(',')
-      @freepiles = @freepiles.tagged_with([tags],:on => :topic, :any => true)
+      @items = @items.tagged_with([tags],:on => :topic, :any => true)
     end
+
+  end
+
+  def show
+    @item = Item.find(params[:id])
   end
 
   def autocomplete_topic_search

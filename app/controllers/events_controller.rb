@@ -18,7 +18,10 @@ class EventsController < ApplicationController
   end
 
   def index
-    @occurrences = Occurrence.all.order(dt: :asc)
+    @events = Item.joins(:occurrences).where("items.type = Event").order('occurrences.dt ASC')
+
+
+
   end
 
   def show
@@ -26,7 +29,8 @@ class EventsController < ApplicationController
     5.times {@item.recurrences.build}
     @comments = @item.comment_threads.order('created_at desc')
     @new_comment = Comment.build_from(@item, current_user.id, "") if user_signed_in?
-    @dates = Occurrence.joins(:items).where('#{Occurrence.table_name}.item_id = #{Item.table_name}.id').order(desc: :dt)
+    @dates = Occurrence.joins(:items).where('#{Occurrence.table_name}.item_id = #{Item.table_name}.id').order(dt: :asc)
+
   end
 
 end
