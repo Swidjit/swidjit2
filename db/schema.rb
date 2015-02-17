@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214135804) do
+ActiveRecord::Schema.define(version: 20150217100751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20150214135804) do
     t.integer  "importance",     default: 0
     t.string   "publish_status"
     t.string   "condition"
+    t.text     "schedule"
   end
 
   create_table "notifications", force: true do |t|
@@ -72,12 +73,27 @@ ActiveRecord::Schema.define(version: 20150214135804) do
     t.datetime "updated_at"
   end
 
+  create_table "occurrences", force: true do |t|
+    t.integer  "item_id"
+    t.datetime "dt"
+  end
+
   create_table "reactions", force: true do |t|
     t.string   "reaction_type"
     t.integer  "user_id"
     t.integer  "item_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "recurrences", force: true do |t|
+    t.datetime "start_datetime"
+    t.datetime "end_datetime"
+    t.datetime "recur_until"
+    t.string   "recurrence_type"
+    t.string   "recur_day"
+    t.string   "recur_week"
+    t.integer  "item_id"
   end
 
   create_table "responses", force: true do |t|

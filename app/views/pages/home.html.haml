@@ -1,7 +1,10 @@
 #new
   %button new item
 
-
+=form_for :event, :url=>events_path, :method => :post do |f|
+  =f.text_area :title
+  =f.text_field :topic_list
+  =f.submit
 :javascript
   $(document).on('ready page:load', function(){
     $('#new').on("click", function() {

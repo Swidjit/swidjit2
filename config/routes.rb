@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :users, :only => [:show]
+
   resources :items do
     resources :watches, :only => [:create]
     resources :images, :only => [:destroy]
+    resources :recurrences, :only => [:create, :destroy]
     collection do
       get 'autocomplete_topic_search'
     end
@@ -12,9 +14,12 @@ Rails.application.routes.draw do
       post 'upload_file'
       post 'create_or_destroy_reaction'
     end
+
   end
   resources :freepiles
   resources :topics
+  resources :events
+
   resources :questions do
     resource :response, :only => [:create, :destroy]
   end

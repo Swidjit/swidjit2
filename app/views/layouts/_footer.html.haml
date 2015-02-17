@@ -3,6 +3,7 @@
   .button{:value=>"freepile"} freepile
   .button{:value=>"topic"} topic
   .button{:value=>"question"} question
+  .button{:value=>"event"} event
 
 :javascript
   $(document).on('ready page:load', function(){
@@ -16,6 +17,9 @@
           break;
         case 'question':
           $("#new-item").html("#{escape_javascript render :partial => 'questions/form'}");
+          break;
+        case 'event':
+          $("#new-item").html("#{escape_javascript render :partial => 'events/form'}");
           break;
       };
     });

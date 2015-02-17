@@ -22,6 +22,15 @@ class ItemsController < ApplicationController
 
   end
 
+  def update
+    @item = Item.find(params[:id])
+    if(params[:item][:source]=="scheduler")
+      @item.recurrences.delete_all
+    end
+    @item.update_attributes(item_params)
+
+  end
+
   def create_or_destroy_reaction
     @item = Item.find(params[:id])
     cancelled = false;
@@ -78,5 +87,9 @@ class ItemsController < ApplicationController
         @class = "flag"
         render 'reactions/flagged'
     end
+  end
+
+  def item_params
+    params.require(:item).permit(recurrences_attributes: [:start_datetime, :end_datetime, :recur_until, :recur_day, :recur_week, :recurrence_type])
   end
 end
