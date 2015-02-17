@@ -1,0 +1,30 @@
+
+.recurrence
+  .start-time
+    .schedule-label this event begins:
+    %input{:type => 'text', :class => 'date-field', :name => 'recurrence[start_date]', :class => "datepicker recurrence_start_date", :placeholder => "start date"}
+    %input{:type => 'text', :class => 'date-field', :name => 'recurrence[start_time]', :class => "timepicker recurrence_start_time", :placeholder => "start time"}
+  .end-time
+    .schedule-label this event ends:
+    %input{:type => 'text', :class => 'date-field', :name => 'recurrence[end_date]', :class => '',:class => "datepicker recurrence_end_date", :placeholder => "end date"}
+    %input{:type => 'text', :class => 'date-field', :name => 'recurrence[end_time]', :class => '',:class => "timepicker recurrence_end_time", :placeholder => "end time"}
+  .recurrence-schedule
+    .schedule-label and recurs every:
+    =select_tag "interval",  options_for_select(["day","week","other week","month","day_of_x_week"],"day"), :class => "recurrence_interval"
+    .day-of-week
+      =select_tag "recur_week", options_for_select(["1st","2nd","3rd","4th","last"],"1st"), :class => "recurrence_week"
+      =select_tag "recur_day", options_for_select(["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"Monday"), :class => "recurrence_day"
+    .schedule-label until:
+    %input{:type => 'text', :class => 'date-field', :name => 'recurrence[recur_until]', :class => '',:class => "datepicker recurrence_until", :placeholder => "set start date"}
+    
+  .clearboth
+  =link_to "add end time",  "#", :class => "add-end-time", :style => rec.nil? ? "display:block" : "display: none"
+  .clearboth
+  =link_to "add recurrence", "#", :class => "add-recurrence", :style => rec.nil? ? "display:block" : "display: none"
+  -if rec.present?
+    .clearboth
+    =link_to "remove end time", "#", :class => "remove-end-time", :style => rec.end_datetime.nil? ? "display:none" : "display: block"
+    .clearboth
+    =link_to "clear recurrence", "#", :class => "remove-recurrence", :style => rec.recur_until.nil? ? "display:none" : "display: block"
+  .clearboth
+  =link_to "delete schedule", "#", :class => "remove-schedule"     

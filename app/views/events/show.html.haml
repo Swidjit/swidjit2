@@ -1,0 +1,7 @@
+#edit-schedule
+  %a edit event schedule
+=render :partial => 'items/edit_schedule'
+:javascript
+    $('#edit-schedule').click(function() {
+      $('#recurrence-form').foundation("reveal","open");
+    });

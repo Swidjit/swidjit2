@@ -26,6 +26,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     if(params[:item][:source]=="scheduler")
       @item.recurrences.delete_all
+      @item.occurrences.delete_all
     end
     @item.update_attributes(item_params)
 

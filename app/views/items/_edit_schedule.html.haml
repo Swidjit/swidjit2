@@ -1,0 +1,87 @@
+#recurrence-form.reveal-modal{:reveal_id => ""}
+  %a.close{:href => "#close", :title => "Close", :onclick => "closeModalWindow();"} X
+  %h2 event schedule
+  %p Some events schedules are complicated.  We've designed this form to account for all those complexities, no matter how unusual.  You can add any number of event starting points, and then optionally choose to make those dates/times recur on the schedule you select.
+  #schedule
+    =form_for @item, :url=> item_path(@item), :as => :item, :method => :patch, :source => "scheduler", :remote=>:true do |f|
+      =f.hidden_field :source, :value => "scheduler"
+      =f.fields_for :recurrences do |f1|
+        .schedule
+          =f1.text_field :start_datetime, :class => "datetimepicker", :placeholder => "start time"
+          =f1.text_field :end_datetime, :class => "datetimepicker", :placeholder => "end time"
+          .recurrence{:style=>"display:none;"}
+            =f1.text_field :recur_until, :class => "datetimepicker", :placeholder => "cancel time"
+
+            =f1.select :recurrence_type, ["day","week","other week","month","day_of_x_week"], {}, {:class => "interval"}
+            .day-of-week{:style=>"display:none;"}
+              =f1.select :recur_day, [nil,"1st","2nd","3rd","4th","last"]
+              =f1.select :recur_week, [nil,"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], :value => "None"
+          .clear
+          =link_to "add end time",  "#", :class => "add-end-time"
+          .clear
+          =link_to "add recurrence", "#", :class => "add-recurrence"
+          .clear
+          =link_to "remove end time", "#", :class => "remove-end-time"
+          .clear
+          =link_to "delete schedule", "#", :class => "remove-schedule"
+      #new-schedule.button new schedule
+    %button#submit save
+
+
+:javascript
+  $(document).ready(function() {
+    var recur_count = parseInt("#{@item.recurrences.count}");
+    $('.datetimepicker').datetimepicker();
+    var begin_date;
+
+    $('.schedule').hide();
+    $('.schedule:lt('+recur_count+')').show();
+    $('#new-schedule').on('click', function() {
+      $('.schedule:hidden:first').show();
+      recur_count++;
+      console.log(recur_count);
+    });
+
+    $('#submit').on('click', function(e) {
+      console.log(recur_count);
+      $('.schedule').slice(recur_count).remove();
+      $('#edit_item').submit();
+    });
+
+    $('.add-end-time').click(function() {
+      $(this).parent().find('.end-time').css("display","block");
+      $(this).css("display","none");
+      $('.remove-end-time').css("display","block");
+      begin_date = $(this).parent().find('.start-time .datepicker').datepicker("getDate");
+      $(this).parent().find('.datepicker').datepicker("setDate", new Date(begin_date.getFullYear(),begin_date.getMonth(),begin_date.getDate()));
+    });
+    $('.remove-end-time').click(function() {
+
+      $(this).parent().find('.end-time').css("display","none");
+      $(this).parent().find('.recurrence_end_date').val('');
+      $(this).parent().find('.recurrence_end_time').val('');
+      $(this).css("display","none");
+      $('.add-end-time').css("display","block");
+
+    });
+    $('.add-recurrence').click(function() {
+      $(this).parent().find('.recurrence').css("display","block");
+    });
+
+
+    $('.add-recurrence').click(function() {
+      $(this).parent().find('.recurrence-interval').css("display","block");
+    });
+
+    $('.remove-schedule').click(function() {
+      $(this).parent().next().remove();
+      $(this).parent().remove();
+      recur_count--;
+      console.log(recur_count);
+    });
+    $('.interval').change(function() {
+      if($(this).val() == 'day_of_x_week') {
+        $(this).parent().find('.day-of-week').css("display","block");
+      }
+    });
+  });

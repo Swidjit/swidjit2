@@ -7,6 +7,7 @@ class Item < ActiveRecord::Base
   has_many :images, :dependent => :delete_all
   has_many :reactions, :dependent => :delete_all
   has_many :recurrences, :dependent => :destroy, :foreign_key => :item_id
+  has_many :occurrences, :dependent => :destroy, :foreign_key => :item_id
   accepts_nested_attributes_for :recurrences
   acts_as_commentable
 
