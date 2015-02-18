@@ -18,7 +18,11 @@ Rails.application.routes.draw do
   end
   resources :freepiles
   resources :topics
-  resources :events
+  resources :events do
+    collection do
+      get :day
+    end
+  end
 
   resources :questions do
     resource :response, :only => [:create, :destroy]

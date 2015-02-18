@@ -1,10 +1,26 @@
 #new
-  %button new comment
-=render @events
+  %button new event
+#calendar
+  =render @items
 
+%input.datetimepicker
 
 :javascript
   $(document).on('ready page:load', function(){
+
+    var d = $('.datetimepicker').datetimepicker({
+      timepicker:false,
+      format:'Y-m-d',
+      inline:true,
+      value:'#{Time.now.strftime("%Y-%m-%d")}',
+      onChangeDateTime:function(dp,$input){
+        var data = {
+          date: $input.val()
+        }
+        $.get('#{day_events_path}', data);
+      }
+    });
+
     $("#new-item").html("#{escape_javascript render :partial => 'events/form'}");
     $('#new').on("click", function() {
       $('#new-item').foundation("reveal","open");

@@ -18,9 +18,13 @@ class EventsController < ApplicationController
   end
 
   def index
-    @events = Item.joins(:occurrences).where("items.type = Event").order('occurrences.dt ASC')
+    @items = Item.joins(:occurrences).where("items.type = 'Event'").order('occurrences.dt ASC')
+    #@tom = Item.joins(:occurrences).where("items.type = 'Event' and occurrences.dt::date = ?",Date.tomorrow).order('occurrences.dt ASC')
+  end
 
+  def day
 
+    @items = Item.joins(:occurrences).where("items.type = 'Event' and occurrences.dt::date = ?",params[:date]).order('occurrences.dt ASC')
 
   end
 
