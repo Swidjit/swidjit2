@@ -5,3 +5,14 @@
       $(this).hide();
       $(this).next().show();
     });
+
+    $('.rsvp-type').on('change', function() {
+      if($(this).val()=="take out") {
+        $(this).parent().find('.rsvp-count').attr({"max" : $(this).parent().parent().find('.take-out').attr("value")});
+        $(this).parent().find('.rsvp-count').val(0);
+      }
+      else if($(this).val()=="dine in") {
+        $(this).parent().find('.rsvp-count').attr({"max" : $(this).parent().parent().find('.dine-in').attr("value")});
+        $(this).parent().find('.rsvp-count').val(0);
+      }
+    });

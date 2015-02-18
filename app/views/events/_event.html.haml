@@ -6,13 +6,17 @@
       -@rsvps = current_user.rsvps.where(:item_id=>event.id)
       -if @rsvps.present?
         =render @rsvps
-  .submit-rsvp
+  -if event.spots.length > 0
+    .submit-rsvp
 
-    %button.show-rsvp-form{:value=>event.id} rsvp
+      %button.show-rsvp-form{:value=>event.id} rsvp
 
-    .rsvp-form{:style=>"display:none;"}
-      =form_for :rsvp, :url => item_rsvps_path(event.id), :method => :post, :remote => :true do |f|
+      .rsvp-form{:style=>"display:none;"}
+        .dine-in{:value => event.dine_in_spots}
+        .take-out{:value => event.take_out_spots}
+        =form_for :rsvp, :url => item_rsvps_path(event.id), :method => :post, :remote => :true do |f|
 
-        =f.select :rsvp_type, ["dine in", "take out"]
-        =f.number_field :rsvp_count
-        =f.submit "rsvp", :class=> "button tiny"
+          =f.select :rsvp_type, ["dine in", "take out"], {}, :class => 'rsvp-type'
+          =f.number_field :rsvp_count, :min=>0, :max=>event.dine_in_spots, :class => 'rsvp-count'
+          =f.submit "rsvp", :class=> "button tiny"
+  .message

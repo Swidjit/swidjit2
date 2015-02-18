@@ -9,12 +9,17 @@ class Item < ActiveRecord::Base
   has_many :recurrences, :dependent => :destroy, :foreign_key => :item_id
   has_many :occurrences, :dependent => :destroy, :foreign_key => :item_id
   has_many :rsvps, :dependent => :destroy
+  has_many :spots, :dependent => :destroy, :inverse_of => :item
+  accepts_nested_attributes_for :spots
   accepts_nested_attributes_for :recurrences
+
   acts_as_commentable
 
   acts_as_taggable_on :topic
 
   after_save :notify, :only => [:update]
+
+
 
   def notify
     n = Notification.new

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150218021901) do
+ActiveRecord::Schema.define(version: 20150218035317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,12 @@ ActiveRecord::Schema.define(version: 20150218021901) do
     t.integer "user_id"
     t.integer "rsvp_count", default: 1
     t.string  "rsvp_type"
+  end
+
+  create_table "spots", force: true do |t|
+    t.integer "item_id"
+    t.string  "spot_type"
+    t.integer "spot_count"
   end
 
   create_table "taggings", force: true do |t|

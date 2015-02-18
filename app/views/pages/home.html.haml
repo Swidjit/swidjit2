@@ -1,9 +1,13 @@
 #new
   %button new item
-
-=form_for :event, :url=>events_path, :method => :post do |f|
+-@event = Event.new
+-@event.spots.build
+=form_for @event, :url=>events_path, :method => :post do |f|
   =f.text_area :title
   =f.text_field :topic_list
+  =f.fields_for :spots do |f1|
+    =f1.select :spot_type, ["dine in","take out"]
+    =f1.number_field  :spot_count
   =f.submit
 :javascript
   $(document).on('ready page:load', function(){

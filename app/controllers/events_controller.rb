@@ -14,7 +14,7 @@ class EventsController < ApplicationController
   end
 
   def item_params
-    params.require(:event).permit(:title, :details, :address, :latlng, :topic_list)
+    params.require(:event).permit(:title, :details, :address, :latlng, :topic_list, :spots_attributes => [:spot_type, :spot_count])
   end
 
   def index
