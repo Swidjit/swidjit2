@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :watches, :only => [:create]
     resources :images, :only => [:destroy]
     resources :recurrences, :only => [:create, :destroy]
+    resources :rsvps, :only => [:create, :destroy]
     collection do
       get 'autocomplete_topic_search'
     end

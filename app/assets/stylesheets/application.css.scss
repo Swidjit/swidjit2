@@ -127,3 +127,30 @@
   display: inline;
   line-height: 40px;
 }
+
+
+/* items */
+
+.submit-rsvp {
+  button, form, div {
+    display:inline;
+  }
+  select, input[type="number"], {
+    display:inline;
+    width: 90px;
+  }
+}
+.submit-rsvp,.rsvps  {
+  display:inline;
+}
+.rsvp {
+  display:inline;
+  margin-top:2px;
+  font-size: 17px;
+  padding: 7px;
+  background-color: #c0c;
+  margin-right: 4px;
+  %i {
+    display:inline;
+  }
+}

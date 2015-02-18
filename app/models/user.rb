@@ -11,4 +11,6 @@ class User < ActiveRecord::Base
   has_many :comments, :dependent => :delete_all
   has_many :responses
 
+  has_many :rsvps, :dependent => :delete_all
+
 end

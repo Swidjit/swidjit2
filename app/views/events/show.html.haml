@@ -1,7 +1,30 @@
-#edit-schedule
-  %a edit event schedule
+%div{:id=>"item_#{@item.id}"}
+  #edit-schedule
+    %a edit event schedule
+
+  .rsvps
+    -if user_signed_in?
+      -@rsvps = current_user.rsvps.where(:item_id=>@item.id)
+      -if @rsvps.present?
+        =render @rsvps
+  .submit-rsvp
+
+    %button.show-rsvp-form{:value=>@item.id} rsvp
+
+    .rsvp-form{:style=>"display:none;"}
+      =form_for :rsvp, :url => item_rsvps_path(@item.id), :method => :post, :remote => :true do |f|
+
+        =f.select :rsvp_type, ["dine in", "take out"]
+        =f.number_field :rsvp_count
+        =f.submit "rsvp", :class=> "button tiny"
+
+
 =render :partial => 'items/edit_schedule'
 :javascript
     $('#edit-schedule').click(function() {
       $('#recurrence-form').foundation("reveal","open");
+    });
+    $('.show-rsvp-form').on('click',function() {
+      $(this).hide();
+      $(this).next().show();
     });

@@ -1,2 +1,18 @@
-=link_to event.title, event_path(event)
-%br
+%div{:id=>"item_#{event.id}"}
+  =link_to event.title, event_path(event)
+  %br
+  .rsvps
+    -if user_signed_in?
+      -@rsvps = current_user.rsvps.where(:item_id=>event.id)
+      -if @rsvps.present?
+        =render @rsvps
+  .submit-rsvp
+
+    %button.show-rsvp-form{:value=>event.id} rsvp
+
+    .rsvp-form{:style=>"display:none;"}
+      =form_for :rsvp, :url => item_rsvps_path(event.id), :method => :post, :remote => :true do |f|
+
+        =f.select :rsvp_type, ["dine in", "take out"]
+        =f.number_field :rsvp_count
+        =f.submit "rsvp", :class=> "button tiny"

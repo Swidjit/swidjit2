@@ -1,1 +1,7 @@
 =render @items
+
+:javascript
+    $('.show-rsvp-form').on('click',function() {
+      $(this).hide();
+      $(this).next().show();
+    });

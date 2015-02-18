@@ -21,7 +21,8 @@
     %p.alert= alert
     .row
       .large-3.columns
-        =render @notifications
+        -if user_signed_in?
+          =render @notifications
       .large-9.columns
         = yield
     =render :partial => 'layouts/footer'

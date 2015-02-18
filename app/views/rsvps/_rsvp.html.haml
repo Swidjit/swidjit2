@@ -1,0 +1,6 @@
+.rsvp[rsvp]
+  %i.fi-star
+  =rsvp.rsvp_type
+  =rsvp.rsvp_count
+  =link_to item_rsvp_path(rsvp.item, rsvp), :method => :delete, :remote => :true do
+    %i.fi-trash
