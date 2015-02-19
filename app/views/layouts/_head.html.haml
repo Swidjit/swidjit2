@@ -21,7 +21,7 @@
             %a.item
               %i.fi-torso-female
         %li.has-dropdown
-          %a{:href => "#"} Username
+          =link_to current_user.username, profile_path(current_user.username)
           %ul.dropdown
             %li
               %a{:href => "#"} Account Settings
