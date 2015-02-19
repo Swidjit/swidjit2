@@ -1,1 +1,7 @@
 =render @shared
+-if user_signed_in?
+  -@subscription = current_user.subscriptions.where(:subscription_id => @user.id).first
+  -if @subscription.present?
+    =render :partial => 'subscriptions/unfollow_user', :locals => {user:@user}
+  -else
+    =render :partial => 'subscriptions/follow_user', :locals => {user:@user}
