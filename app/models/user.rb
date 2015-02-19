@@ -14,6 +14,11 @@ class User < ActiveRecord::Base
   has_many :subscriptions
 
   has_many :rsvps, :dependent => :delete_all
+
+  has_attached_file :pic, :styles => { :medium => "250x250>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  validates_attachment_content_type :pic, :content_type => /\Aimage\/.*\Z/
+
+
   attr_accessor :login
 
   validates :username,

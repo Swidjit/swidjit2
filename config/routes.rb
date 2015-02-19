@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :users, :only => [:show] do
+  resources :users do
     resources :subscriptions, :only => [:create,:destroy,:index]
+    member do
+      post 'upload_file'
+    end
   end
 
   resources :items do

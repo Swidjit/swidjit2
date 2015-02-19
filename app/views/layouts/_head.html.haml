@@ -24,9 +24,11 @@
           =link_to current_user.username, profile_path(current_user.username)
           %ul.dropdown
             %li
-              %a{:href => "#"} Account Settings
+              =link_to "settings", edit_user_path(current_user)
             %li.active
               = link_to "Log out", destroy_session_path(:user), :method => :delete
+        %li
+          =image_tag current_user.pic.url(:thumb), :size => '60x60'
     -else
       %ul.right
         %li.active
