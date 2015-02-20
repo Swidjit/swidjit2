@@ -9,7 +9,8 @@ class Item < ActiveRecord::Base
   has_many :recurrences, :dependent => :destroy, :foreign_key => :item_id
   has_many :occurrences, :dependent => :destroy, :foreign_key => :item_id
   has_many :rsvps, :dependent => :destroy
-  has_many :spots, :dependent => :destroy, :inverse_of => :item
+  has_many :spots, :dependent => :destroy
+  has_many :flags, :dependent => :destroy
   accepts_nested_attributes_for :spots
   accepts_nested_attributes_for :recurrences
 

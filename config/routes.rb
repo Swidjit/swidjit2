@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :subscriptions, :only => [:create,:destroy,:index]
+    resources :flags
     member do
       post 'upload_file'
     end
@@ -13,6 +14,7 @@ Rails.application.routes.draw do
     resources :images, :only => [:destroy]
     resources :recurrences, :only => [:create, :destroy]
     resources :rsvps, :only => [:create, :destroy]
+    resources :flags, :only => [:create]
     collection do
       get 'autocomplete_topic_search'
     end

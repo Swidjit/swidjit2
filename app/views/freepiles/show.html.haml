@@ -42,9 +42,27 @@
     .comments
       = render :partial => 'comments/comment', :collection => @comments, :as => :comment
     = render :partial => 'comments/form', :locals => { :comment => @new_comment }
+
+  -if user_signed_in?
+    =link_to "flag post", "#", :id => "reveal-flag-form"
+    #flag.reveal-modal{"data-reveal" => ""}
+      %h4 Flag #{@freepile.title}
+
+
+      =form_for :flag, :url => item_flags_path(@freepile.id), :method=>:post, :remote=>:true do
+        =hidden_field_tag :flagged_by, current_user.id
+        %label which etiquette rule did this user break?
+        =select_tag :term, options_from_collection_for_select(Term.where(:term_type=>"online"), "id", "title")
+        =hidden_field_tag :term_type, "online"
+        =text_area_tag :comment, nil,:placeholder => "add an optional comment here to explain your reason for flagging"
+        =submit_tag "Flag Item", :class => "button"
+      %a.close-reveal-modal ×
+
 :javascript
   $(document).on('ready page:load', function(){
-
+    $('#reveal-flag-form').on('click', function() {
+      $('#flag').foundation("reveal","open");
+    });
     $("#s3-uploader").S3Uploader();
     coord = "#{@freepile.latlng}";
     coords = coord.split(",");

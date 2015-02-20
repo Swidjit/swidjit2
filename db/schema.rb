@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150219161102) do
+ActiveRecord::Schema.define(version: 20150220094122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,15 @@ ActiveRecord::Schema.define(version: 20150219161102) do
 
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "flags", force: true do |t|
+    t.integer "item_id"
+    t.integer "user_id"
+    t.integer "flagged_by"
+    t.integer "term"
+    t.string  "term_type"
+    t.string  "comment"
+  end
 
   create_table "images", force: true do |t|
     t.integer  "item_id"
@@ -147,6 +156,12 @@ ActiveRecord::Schema.define(version: 20150219161102) do
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+
+  create_table "terms", force: true do |t|
+    t.string "title"
+    t.string "description"
+    t.string "term_type"
+  end
 
   create_table "users", force: true do |t|
     t.datetime "created_at"
