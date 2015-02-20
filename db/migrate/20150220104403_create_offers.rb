@@ -3,7 +3,8 @@ class CreateOffers < ActiveRecord::Migration
     create_table :offers do |t|
       t.belongs_to :user
       t.belongs_to :item
-      t.float :value
+      t.integer :value
+      t.string :currency
       t.string :message
       t.datetime :expiration
     end

@@ -11,6 +11,10 @@ class ProductsController < ApplicationController
   def new
     @product = Product.new
   end
+  def show
+    @item = Product.find(params[:id])
+    render :template => 'items/show'
+  end
 
   def update
     @item = Product.find(params[:id])
@@ -19,7 +23,7 @@ class ProductsController < ApplicationController
   end
 
   def item_params
-    params.require(:product).permit(:title, :details, :condition, :topic_list, prices_attributes:[:negotiable, :value, :currency])
+    params.require(:product).permit(:title, :details, :condition, :topic_list, prices_attributes:[:negotiable, :value, :currency, :digital_payment])
   end
 
   def index

@@ -5,4 +5,8 @@
     =f.fields_for :prices do |f1|
       =f1.number_field :value, :class => "answer"
       =f1.select :currency, ["usd","ithacash"]
+      %label will you accept best offer
+      =f1.check_box :negotiable
+      %label will you allow digital payments
+      =f1.check_box :digital_payment
     =f.submit "set price", :class=>"button"

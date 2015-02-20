@@ -1,0 +1,6 @@
+.offer[offer]
+  %i.fi-star
+  =offer.value
+  =offer.currency
+  =link_to product_offer_path(offer.item, offer), :method => :delete, :remote => :true do
+    %i.fi-trash

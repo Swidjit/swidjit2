@@ -1,6 +1,23 @@
-=link_to product.details, product_path(product)
-%br
-price:
-=product.prices.first.value
-=product.prices.first.currency
+%div{:id=>"item_#{product.id}"}
+  =link_to product.details, product_path(product)
+  %br
+  price:
+  =product.prices.first.value
+  =product.prices.first.currency
+
+  -if product.prices.first.negotiable
+    .submit-rsvp
+
+      %button.show-rsvp-form{:value=>product.id} make offer
+
+      .rsvp-form{:style=>"display:none;"}
+        =form_for :offer, :url => product_offers_path(product.id), :method => :post, :remote => :true do |f|
+          =f.hidden_field :item_id, :value =>product.id
+          =f.select :currency, ["usd", "ithacash"]
+          =f.number_field :value, :min=>1, :max=>product.prices.first.value
+          =f.submit "submit offer", :class=> "button tiny"
+    .offers
+
+  -if product.user == current_user
+    =render product.offers.order(value: :desc)
 %br

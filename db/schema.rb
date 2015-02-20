@@ -90,7 +90,8 @@ ActiveRecord::Schema.define(version: 20150220104403) do
   create_table "offers", force: true do |t|
     t.integer  "user_id"
     t.integer  "item_id"
-    t.float    "value"
+    t.integer  "value"
+    t.string   "currency"
     t.string   "message"
     t.datetime "expiration"
   end
