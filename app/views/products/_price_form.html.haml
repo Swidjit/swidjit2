@@ -1,0 +1,8 @@
+-@item.prices.build
+#price-form
+  %p establish a price for the item you have listed
+  =form_for @item, :url=>product_path(@item), :method => :patch do |f|
+    =f.fields_for :prices do |f1|
+      =f1.number_field :value, :class => "answer"
+      =f1.select :currency, ["usd","ithacash"]
+    =f.submit "set price", :class=>"button"

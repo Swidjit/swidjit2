@@ -1,5 +1,5 @@
 #answers-form
-  %p let's start with the question you wanted answered.  depending on what kind of question you select, you will get a chance to supply answers in the next step
+  %p establish a price for the item you have listed
   .answers
     =form_for @item, :url=>question_path(@item), :method => :patch do |f|
       =f.fields_for :answers do |f1|

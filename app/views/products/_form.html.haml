@@ -1,0 +1,7 @@
+#product-form
+  =form_for :product, :url=>products_path, :method => :post, :remote=>:true do |f|
+    =f.text_field :title
+    =f.text_area :details
+    =f.text_field :topic_list
+
+    =f.submit

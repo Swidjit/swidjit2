@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :recurrences, :only => [:create, :destroy]
     resources :rsvps, :only => [:create, :destroy]
     resources :flags, :only => [:create]
+
     collection do
       get 'autocomplete_topic_search'
     end
@@ -31,7 +32,9 @@ Rails.application.routes.draw do
       get :day
     end
   end
-
+  resources :products do
+    resources :offers, :only => [:create, :destroy]
+  end
   resources :questions do
     resource :response, :only => [:create, :destroy]
   end

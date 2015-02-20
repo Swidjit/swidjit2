@@ -1,0 +1,14 @@
+#new
+  %button new comment
+=render @products
+
+
+:javascript
+  $(document).on('ready page:load', function(){
+    $("#new-item").html("#{escape_javascript render :partial => 'products/form'}");
+    $('#new').on("click", function() {
+      $('#new-item').foundation("reveal","open");
+    });
+
+
+  });
