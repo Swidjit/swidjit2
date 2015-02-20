@@ -8,7 +8,10 @@ Rails.application.routes.draw do
       post 'upload_file'
     end
   end
-
+  resources :claims, :only => [:create, :destroy] do
+    post 'accept'
+    post 'finalize'
+  end
   resources :items do
     resources :watches, :only => [:create]
     resources :images, :only => [:destroy]

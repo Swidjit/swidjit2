@@ -17,7 +17,8 @@
           =f.number_field :value, :min=>1, :max=>product.prices.first.value
           =f.submit "submit offer", :class=> "button tiny"
     .offers
-
+  .claim
+    =render :partial => 'items/claim_button', :locals => {product:product}
   -if product.user == current_user
     =render product.offers.order(value: :desc)
 %br

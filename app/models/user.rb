@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
   has_many :flags
   has_many :offers
+  has_many :claims
 
   has_many :subscriptions
 

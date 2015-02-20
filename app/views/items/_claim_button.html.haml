@@ -1,0 +1,3 @@
+=form_for :claim, :url => claims_path, :method => :post, :remote => :true do |f|
+  =f.hidden_field :item_id, :value =>product.id
+  =f.submit "claim item", :class=> "button tiny"

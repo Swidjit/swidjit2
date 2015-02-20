@@ -11,6 +11,7 @@ class Item < ActiveRecord::Base
   has_many :rsvps, :dependent => :destroy
   has_many :spots, :dependent => :destroy
   has_many :flags, :dependent => :destroy
+  has_many :claims, :dependent => :delete_all
   accepts_nested_attributes_for :spots
   accepts_nested_attributes_for :recurrences
 
