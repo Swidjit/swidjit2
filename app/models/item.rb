@@ -15,7 +15,8 @@ class Item < ActiveRecord::Base
   accepts_nested_attributes_for :spots
   accepts_nested_attributes_for :recurrences
   has_many :prices, :dependent => :delete_all, :foreign_key => :item_id
-
+  geocoded_by :address   # can also be an IP address
+  after_validation :geocode
   accepts_nested_attributes_for :prices
   acts_as_commentable
 

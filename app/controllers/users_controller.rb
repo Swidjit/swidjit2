@@ -21,18 +21,24 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    @user = User.find(params[:id])
+    @user.update_attributes(user_params)
+  end
+
   def update_tags
-    puts "hey"
-    puts current_user.interest_list
     current_user.interest_list = params[:interest_list]
     current_user.save
-    puts current_user.interest_list
   end
 
   def upload_file
 
     current_user.update_attribute(:pic, URI.parse(URI.unescape(params['url'])))
     @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:interest_list, :address, :latlng)
   end
 
 end

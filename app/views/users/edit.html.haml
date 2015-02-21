@@ -1,6 +1,9 @@
 %h4 your interests
-=form_for @user, :method=>:patch,:remote=>:true do |f|
+=form_for @user, :method=>:patch,:remote=>:true, :html=> {:id=>"edit-user"} do |f|
   =f.text_field :interest_list, :data => {:pre => @user.interest_list.collect{|tag| {:id => tag, :name => tag}}}
+  =f.text_field :address, :class=>"address"
+  =f.hidden_field :latlng, :id=> "user-latlng"
+#map-canvas
 %h4 profile photo
 #user-photo
 =s3_uploader_form callback_url: upload_file_user_path(@user), remote: :true, callback_param: "user[image_url]", id: "s3-uploader" do
@@ -24,13 +27,31 @@
         prePopulate: $("#user_interest_list").data("pre"),
         allowFreeTagging: true,
         onAdd: function(item) {
-          $.post("#{update_tags_user_path(@user.id)}", {interest_list:$("#user_interest_list").val()});
+          $("#edit-user").submit();
         },
         onDelete: function(item) {
           $.post("#{update_tags_user_path(@user.id)}", {interest_list:$("#user_interest_list").val()});
         }
       }
     );
+    var autocomplete, input, map, options;
+    input = $('.address');
+    options = {
+      language: 'en-GB',
+      center: new google.maps.LatLng(42.446877, -76.505407),
+      zoom: 11
+    };
+    autocomplete = new google.maps.places.Autocomplete(input[0], options);
+    map = new google.maps.Map(document.getElementById('map-canvas'), options);
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
 
+      var place = autocomplete.getPlace();
+      $('#user-latlng').attr("value",place.geometry.location.k+","+place.geometry.location.C);
+      $("#edit-user").submit();
 
+    })
+
+    google.maps.event.addListener(map, 'bounds_changed', function() {
+      autocomplete.bindTo('bounds', map);
+    });
   });

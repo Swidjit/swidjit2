@@ -64,7 +64,7 @@
       $('#flag').foundation("reveal","open");
     });
     $("#s3-uploader").S3Uploader();
-    coord = "#{@freepile.latlng}";
+    coord = "#{@freepile.latitude},#{@freepile.longitude}";
     coords = coord.split(",");
     latlng = new google.maps.LatLng(coords[0],coords[1]);
     options = {

@@ -55,11 +55,13 @@ class ItemsController < ApplicationController
       when 'upcoming'
         @items = @items.happening_soon
       when 'nearby'
-        @items = @items.nearby
+        @items = @items.near(current_user.latlng, 0.5)
       when 'followed'
         @items = @items.by_users(current_user.subscriptions.collect(&:subscription_id))
       when 'interests'
         @items = @items.tagged_with(current_user.interest_list, :on => :topic, :any => true)
+      when 'nearby'
+
     end
     if params.has_key?("topic")
       @items = @items.tagged_with(params[:topic]) unless params[:topic].empty?

@@ -23,7 +23,7 @@ gem 'acts-as-taggable-on', '~> 3.4'
 gem 'paperclip', :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'aws-sdk', '< 2.0'
 gem 's3_direct_upload'
-
+gem 'geocoder'
 gem 'acts_as_commentable_with_threading'
 
 group :assets do

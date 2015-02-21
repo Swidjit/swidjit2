@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150220201840) do
+ActiveRecord::Schema.define(version: 20150221055145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,11 +71,12 @@ ActiveRecord::Schema.define(version: 20150220201840) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.string   "address"
-    t.string   "latlng"
     t.integer  "importance",     default: 0
     t.string   "publish_status"
     t.string   "condition"
     t.text     "schedule"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   create_table "notifications", force: true do |t|
@@ -206,6 +207,9 @@ ActiveRecord::Schema.define(version: 20150220201840) do
     t.string   "pic_content_type"
     t.integer  "pic_file_size"
     t.datetime "pic_updated_at"
+    t.string   "last_name"
+    t.string   "address"
+    t.string   "latlng"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
