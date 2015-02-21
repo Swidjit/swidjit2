@@ -1,6 +1,12 @@
 #new
   %button new item
+=select_tag :type, options_for_select([ "all","products", "events", "questions","freepiles","topics" ], "all"), :class => 'select-type'
+
 =select_tag :filter, options_for_select([ "all","popular", "followed", "upcoming","nearby" ], "all"), :class => 'select-feed'
+=number_field_tag :max_cost, nil, :min => 5, :class => 'max-cost'
+=select_tag :condition, options_for_select([ "any", "new","excellent", "good", "fair","poor","broken" ], "any"), :class => 'select-condition'
+
+
 #items
   =render @items
 =render @claims
@@ -21,10 +27,18 @@
       $('#new-item').foundation("reveal","open");
     });
 
-    $('.select-feed').on('change',function() {
-      var data = {
-        type: $(this).val()
-      };
-      $.get("#{filter_items_path}", data);
-    });
+    $('.select-feed').on('change',loadItems);
+    $('.select-type').on('change',loadItems);
+    $('.select-condition').on('change',loadItems);
+    $('.max-cost').on('change',loadItems);
   });
+
+  function loadItems() {
+    var data = {
+      type: $('.select-type').val(),
+      filter: $('.select-feed').val(),
+      max_cost: $('.max-cost').val(),
+      condition: $('.select-condition').val()
+    };
+    $.get("#{filter_items_path}", data);
+  }

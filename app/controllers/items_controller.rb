@@ -43,17 +43,29 @@ class ItemsController < ApplicationController
   end
 
   def filter
-    case params[:type]
+    @items = Item.where(nil)
+
+    @items = Item.where(:type => params[:type].camelize.singularize)
+    case params[:filter]
       when 'all'
-        @items = Item.all
+        #@items = Item.all
       when 'popular'
-        @items = Item.popular
+        @items = @items.popular
       when 'upcoming'
-        @items = Item.happening_soon
+        @items = @items.happening_soon
       when 'nearby'
-        @items = Item.nearby
+        @items = @items.nearby
       when 'followed'
-        @items = Item.by_users(current_user.subscriptions.collect(&:subscription_id))
+        @items = @items.by_users(current_user.subscriptions.collect(&:subscription_id))
+    end
+    if params.has_key?("max_cost")
+      @items = @items.max_cost(params[:max_cost].to_i) unless params[:max_cost].empty?
+    end
+    if params.has_key?("condition")
+      @conditions =[ "new","excellent", "good", "fair","poor","broken" ]
+      if @conditions.include?(params[:condition])
+        @items = @items.where(:condition => @conditions.slice(0..@conditions.index(params[:condition])))
+      end
     end
   end
 
