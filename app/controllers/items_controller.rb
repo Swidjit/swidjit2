@@ -2,15 +2,14 @@ class ItemsController < ApplicationController
 
 
   def index
-    @items = Item.all
-    if params.has_key?(:cat)
-      @events = Item.joins(:occurrences).where("items.type = ?",params[:cat].camelcase)
-    else
-      @events = Item.joins(:occurrences).order('occurrences.dt ASC')
+    @items = Item.where(nil)
+    if params.has_key?(:type)
+      @items = Item.where("items.type = ?",params[:type].camelcase.singularize)
     end
     if params.has_key?(:topic)
       tags = params[:topic].split(',')
       @items = @items.tagged_with([tags],:on => :topic, :any => true)
+      @tag = params[:topic].split(',')[0]
     end
 
   end
@@ -44,11 +43,13 @@ class ItemsController < ApplicationController
 
   def filter
     @items = Item.where(nil)
+    if params[:type].empty?
+      @items = Item.all
+    else
+      @items = Item.where(:type => params[:type].camelize.singularize)
+    end
 
-    @items = Item.where(:type => params[:type].camelize.singularize)
     case params[:filter]
-      when 'all'
-        #@items = Item.all
       when 'popular'
         @items = @items.popular
       when 'upcoming'
@@ -57,6 +58,9 @@ class ItemsController < ApplicationController
         @items = @items.nearby
       when 'followed'
         @items = @items.by_users(current_user.subscriptions.collect(&:subscription_id))
+    end
+    if params.has_key?("topic")
+      @items = @items.tagged_with(params[:topic]) unless params[:topic].empty?
     end
     if params.has_key?("max_cost")
       @items = @items.max_cost(params[:max_cost].to_i) unless params[:max_cost].empty?

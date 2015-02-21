@@ -5,8 +5,9 @@
 =select_tag :filter, options_for_select([ "all","popular", "followed", "upcoming","nearby" ], "all"), :class => 'select-feed'
 =number_field_tag :max_cost, nil, :min => 5, :class => 'max-cost'
 =select_tag :condition, options_for_select([ "any", "new","excellent", "good", "fair","poor","broken" ], "any"), :class => 'select-condition'
-
-
+=text_field_tag :tag, @tag, :class => 'select-tag'
+-Item.where(:type=>"Product").topic_counts.each do |t|
+  =link_to t.name, items_path(:topic=>t.name,:type=>"products")
 #items
   =render @items
 =render @claims
@@ -38,7 +39,8 @@
       type: $('.select-type').val(),
       filter: $('.select-feed').val(),
       max_cost: $('.max-cost').val(),
-      condition: $('.select-condition').val()
+      condition: $('.select-condition').val(),
+      topic: $('.select-tag').val()
     };
     $.get("#{filter_items_path}", data);
   }
