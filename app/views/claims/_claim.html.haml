@@ -9,7 +9,7 @@
       %p you are awaiting payment from #{claim.user.username} on item #{claim.item.title}
 
   -elsif claim.claim_status == "submitted"
-    -if claim.user == current_user
+    -if claim.user != current_user
 
       %button.small{:onclick => "$(this).next().show();"} accept
       .claim-buttons{:style=>"display:none;"}
@@ -22,5 +22,6 @@
   -elsif claim.claim_status == "accepted"
     -if claim.user == current_user
       %p your claim has been accepted!  be in touch with #{claim.item.user.username} ASAP to arrange transfer
+      -# insert button to message user
     -else
       %p you've accepted this claim. be in touch with #{claim.user.username} ASAP to arrange transfer

@@ -3,7 +3,7 @@ class ClaimsController < ApplicationController
 
   def create
     @item = Item.unscoped.find(params[:claim][:item_id])
-    @claim = Claim.create(claim_params)
+    @claim = Claim.new(claim_params)
     current_user.claims << @claim
 
   end

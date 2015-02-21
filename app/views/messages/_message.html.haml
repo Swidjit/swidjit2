@@ -1,0 +1,13 @@
+.offer-message
+  .offer-message-meta
+    =link_to message.user.username, profile_path(message.user.username)
+    .offer-message-meta-timestamp
+      = message.created_at.strftime("%-m/%d %l:%M%P")[0..-2]
+
+  .offer-message-text
+
+    =message.body.gsub("<","&lt;").gsub(">","&gt;").gsub("\n","<br />").html_safe
+  -if message.attachment_id.present?
+    -@a = message.attachment_type.camelcase.constantize.find(message.attachment_id)
+    =render @a
+

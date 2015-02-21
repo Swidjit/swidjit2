@@ -11,9 +11,9 @@ h4.padless
 
 .message-conversation
   = render conversation.messages
-- unless conversation.recipient_id == -1
+- unless conversation.recipient_id == -1 || conversation.user_id == 1
   .message-reply
-    
+	=conversation.user_id
     = form_for :conversation_message, :remote => true, :url => conversation_messages_path(conversation) do |f|
       = f.hidden_field :conversation_id, :value => conversation.id
       .row style = "margin-top: 10px;"
