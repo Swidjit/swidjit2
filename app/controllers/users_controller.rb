@@ -21,6 +21,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_tags
+    puts "hey"
+    puts current_user.interest_list
+    current_user.interest_list = params[:interest_list]
+    current_user.save
+    puts current_user.interest_list
+  end
+
   def upload_file
 
     current_user.update_attribute(:pic, URI.parse(URI.unescape(params['url'])))

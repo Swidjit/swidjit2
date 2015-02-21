@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :flags
     member do
       post 'upload_file'
+      post 'update_tags'
     end
   end
   resources :claims, :only => [:create, :destroy] do

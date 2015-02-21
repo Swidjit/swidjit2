@@ -43,7 +43,7 @@ class ItemsController < ApplicationController
 
   def filter
     @items = Item.where(nil)
-    if params[:type].empty?
+    if params[:type].empty? || params[:type] == "all"
       @items = Item.all
     else
       @items = Item.where(:type => params[:type].camelize.singularize)
@@ -58,6 +58,8 @@ class ItemsController < ApplicationController
         @items = @items.nearby
       when 'followed'
         @items = @items.by_users(current_user.subscriptions.collect(&:subscription_id))
+      when 'interests'
+        @items = @items.tagged_with(current_user.interest_list, :on => :topic, :any => true)
     end
     if params.has_key?("topic")
       @items = @items.tagged_with(params[:topic]) unless params[:topic].empty?

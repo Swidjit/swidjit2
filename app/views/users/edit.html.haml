@@ -1,3 +1,7 @@
+%h4 your interests
+=form_for @user, :method=>:patch,:remote=>:true do |f|
+  =f.text_field :interest_list, :data => {:pre => @user.interest_list.collect{|tag| {:id => tag, :name => tag}}}
+%h4 profile photo
 #user-photo
 =s3_uploader_form callback_url: upload_file_user_path(@user), remote: :true, callback_param: "user[image_url]", id: "s3-uploader" do
   =file_field_tag :file
@@ -12,4 +16,21 @@
   $(document).on('ready page:load', function(){
 
     $("#s3-uploader").S3Uploader();
+    $("#user_interest_list").tokenInput(
+      "#{autocomplete_topic_search_items_path}", {
+        preventDuplicates:"true",
+        minChars: 2,
+        theme: "facebook",
+        prePopulate: $("#user_interest_list").data("pre"),
+        allowFreeTagging: true,
+        onAdd: function(item) {
+          $.post("#{update_tags_user_path(@user.id)}", {interest_list:$("#user_interest_list").val()});
+        },
+        onDelete: function(item) {
+          $.post("#{update_tags_user_path(@user.id)}", {interest_list:$("#user_interest_list").val()});
+        }
+      }
+    );
+
+
   });
