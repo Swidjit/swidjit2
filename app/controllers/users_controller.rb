@@ -41,4 +41,10 @@ class UsersController < ApplicationController
     params.require(:user).permit(:interest_list, :address, :latlng)
   end
 
+  def autocomplete
+    @users = User.where("username LIKE (?) or first_name LIKE (?) or last_name LIKE (?)","%#{params[:q]}%","%#{params[:q]}%","%#{params[:q]}%")
+
+    render file: 'users/search.json.rabl'
+  end
+
 end

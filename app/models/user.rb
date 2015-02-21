@@ -17,6 +17,9 @@ class User < ActiveRecord::Base
 
   has_many :subscriptions
 
+  has_many :messages
+  has_many :conversations
+
   has_many :rsvps, :dependent => :delete_all
 
   has_attached_file :pic, :styles => { :medium => "250x250>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"

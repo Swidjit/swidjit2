@@ -1,0 +1,26 @@
+!!! 5
+%html{ :lang => "en"}
+  %head
+    %meta{ :charset => "utf-8" }
+
+    %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
+
+    %title Swidjit
+
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "vendor/modernizr"
+    = javascript_include_tag "application", 'data-turbolinks-track' => true
+    = javascript_include_tag "http://maps.google.com/maps/api/js?v=3.13&sensor=false&libraries=places"
+
+    = favicon_link_tag "favicon.ico"
+    = csrf_meta_tag
+
+  %body
+    =render :partial => 'layouts/head'
+    %p.notice= notice
+    %p.alert= alert
+    .row
+      .large-12.columns
+        #content
+          = yield
+    =render :partial => 'layouts/footer'

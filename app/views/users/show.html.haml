@@ -25,3 +25,12 @@
       =submit_tag "Flag User", :class => "button"
     %a.close-reveal-modal ×
 
+  %a.button{:"data-reveal-id"=>"message-user", :href=>"#"} message #{@user.username}
+
+  #message-user.reveal-modal{"data-reveal" => ""}
+    =render :partial => 'conversations/message_user', :locals => {user:@user}
+
+  :javascript
+      function showMessageWindow() {
+          $('body').append("#{escape_javascript( render :partial => 'conversations/message_user', :locals => {:user => @user})}");
+      }

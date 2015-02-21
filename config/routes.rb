@@ -8,6 +8,17 @@ Rails.application.routes.draw do
       post 'upload_file'
       post 'update_tags'
     end
+    collection do
+      post 'autocomplete'
+    end
+  end
+
+  resources :conversations, :only => [:create,:show,:index, :destroy] do
+    resources :messages, :only => [:create]
+  end
+
+  resources :users, :only => [:edit, :update] do
+    resources :conversations, :only => :index
   end
   resources :claims, :only => [:create, :destroy] do
     post 'accept'
