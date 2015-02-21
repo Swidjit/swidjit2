@@ -3,12 +3,13 @@
   =claim.user.username
   -if claim.claim_status == "pending_payment"
     -if claim.user == current_user
-      =link_to claim_payment_path(claim), :method => :post, :remote => :true do
+      =link_to claim_payment_path(claim, :currency=>'usd'), :method => :post, :remote => :true do
         %button.small make payment
     -else
       %p you are awaiting payment from #{claim.user.username} on item #{claim.item.title}
 
   -elsif claim.claim_status == "submitted"
+    %p hey
     -if claim.user != current_user
 
       %button.small{:onclick => "$(this).next().show();"} accept
@@ -19,6 +20,8 @@
           %button.small accept
       =link_to claim_deny_path(claim), :method => :post, :remote => :true do
         %button.small deny
+    -else
+      %p you have submitted a claim on #{claim.item.title}
   -elsif claim.claim_status == "accepted"
     -if claim.user == current_user
       %p your claim has been accepted!  be in touch with #{claim.item.user.username} ASAP to arrange transfer

@@ -1,5 +1,8 @@
 #items
+-if user_signed_in?
+  =render @claims
 
+  =render @claimed
 
 
 -@event = Event.new

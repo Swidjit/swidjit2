@@ -31,6 +31,27 @@ class ClaimsController < ApplicationController
      @claim.destroy
   end
 
+  def payment
+    @claim = Claim.find(params[:claim_id])
+    @cost = Item.find(@claim.item_id).prices.where(:currency=>params[:currency]).first
+    @payer_balance = current_user.balances.where(:currency=>params[:currency]).first
+    if @cost.value <= @payer_balance.value
+
+      @xfer = Transfer.new
+      @xfer.recipient_id = @claim.item.user.id
+      @xfer.sender_id = current_user.id
+      @xfer.transfer_status = "pending"
+      @xfer.category = "sale"
+      @xfer.item_id = @claim.item.id
+      @xfer.value = @cost.value
+      @xfer.currency = @cost.currency
+      @xfer.save
+      puts "you have enough"
+    else
+      puts "not enough"
+    end
+  end
+
   def claim_params
     params.require(:claim).permit([:item_id])
   end

@@ -5,8 +5,7 @@ class Claim < ActiveRecord::Base
   after_save :message_item_owner
 
   def message_item_owner
-    puts "sdfj"
-    puts self
+
     if self.claim_status == "submitted"
       message = "someone has placed a claim on your item #{self.item.title}.  please take quick action to accept or deny claim"
       conversation = Conversation.create(:user_id => 1, :recipient_id => self.item.user.id)
