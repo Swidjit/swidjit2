@@ -14,13 +14,27 @@ class Item < ActiveRecord::Base
   has_many :claims, :dependent => :delete_all
   accepts_nested_attributes_for :spots
   accepts_nested_attributes_for :recurrences
+  has_many :prices, :dependent => :delete_all, :foreign_key => :item_id
 
+  accepts_nested_attributes_for :prices
   acts_as_commentable
 
   acts_as_taggable_on :topic
 
   after_save :notify, :only => [:update]
 
+  scope :status, -> (status) { where publish_status: status }
+  scope :popular, ->  { order(importance: :desc) }
+  scope :happening_soon, -> { order(start_time: :asc)}
+  scope :by_users, -> (users) {where('items.user_id in (?)',users)}
+  scope :max_cost, -> (cost) {joins(:prices).where("prices.value < ?", cost)}
+  scope :flagged, -> {joins(:flags)}
+  scope :having_image, -> {joins(:images)}
+
+  #most commented
+  #having similiar tags
+  #located nearby
+  #matching interests
 
 
   def notify
