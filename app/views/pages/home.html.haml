@@ -1,7 +1,8 @@
 #new
   %button new item
-
-=render @items
+=select_tag :filter, options_for_select([ "all","popular", "followed", "upcoming","nearby" ], "all"), :class => 'select-feed'
+#items
+  =render @items
 =render @claims
 
 
@@ -20,5 +21,10 @@
       $('#new-item').foundation("reveal","open");
     });
 
-
+    $('.select-feed').on('change',function() {
+      var data = {
+        type: $(this).val()
+      };
+      $.get("#{filter_items_path}", data);
+    });
   });

@@ -42,6 +42,21 @@ class ItemsController < ApplicationController
 
   end
 
+  def filter
+    case params[:type]
+      when 'all'
+        @items = Item.all
+      when 'popular'
+        @items = Item.popular
+      when 'upcoming'
+        @items = Item.happening_soon
+      when 'nearby'
+        @items = Item.nearby
+      when 'followed'
+        @items = Item.by_users(current_user.subscriptions.collect(&:subscription_id))
+    end
+  end
+
   def create_or_destroy_reaction
     @item = Item.find(params[:id])
     cancelled = false;
