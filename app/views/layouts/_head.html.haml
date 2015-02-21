@@ -2,9 +2,9 @@
   %ul.title-area
     %li.name
       %h1
-        %a{:href => "#"}
+        =link_to root_path do
           %i.fi-play
-          Good Luck
+          Swidjit
     / Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone
     %li.toggle-topbar.menu-icon
       %a{:href => "#"}
@@ -12,14 +12,7 @@
   %section.top-bar-section
     -if user_signed_in?
       %ul.right
-        %li
-          .icon-bar.three-up{:style=>"display:block"}
-            %a.item
-              %i.fi-play
-            %a.item
-              %i.fi-crown
-            %a.item
-              %i.fi-torso-female
+
         %li.has-dropdown
           =link_to current_user.username, profile_path(current_user.username)
           %ul.dropdown

@@ -1,13 +1,3 @@
-#new
-  %button new item
-=select_tag :type, options_for_select([ "all","products", "events", "questions","freepiles","topics" ], "all"), :class => 'select-type'
-
-=select_tag :filter, options_for_select([ "all","popular", "followed", "upcoming","nearby", "interests" ], "all"), :class => 'select-feed'
-=number_field_tag :max_cost, nil, :min => 5, :class => 'max-cost'
-=select_tag :condition, options_for_select([ "any", "new","excellent", "good", "fair","poor","broken" ], "any"), :class => 'select-condition'
-=text_field_tag :tag, @tag, :class => 'select-tag'
--Item.where(:type=>"Product").topic_counts.each do |t|
-  =link_to t.name, items_path(:topic=>t.name,:type=>"products")
 #items
   =render @items
 =render @claims
@@ -22,25 +12,6 @@
     =f1.select :spot_type, ["dine in","take out"]
     =f1.number_field  :spot_count
   =f.submit
-:javascript
-  $(document).on('ready page:load', function(){
-    $('#new').on("click", function() {
-      $('#new-item').foundation("reveal","open");
-    });
 
-    $('.select-feed').on('change',loadItems);
-    $('.select-type').on('change',loadItems);
-    $('.select-condition').on('change',loadItems);
-    $('.max-cost').on('change',loadItems);
-  });
 
-  function loadItems() {
-    var data = {
-      type: $('.select-type').val(),
-      filter: $('.select-feed').val(),
-      max_cost: $('.max-cost').val(),
-      condition: $('.select-condition').val(),
-      topic: $('.select-tag').val()
-    };
-    $.get("#{filter_items_path}", data);
-  }
+

@@ -8,6 +8,16 @@
 
 :javascript
   $(document).on('ready page:load', function(){
+
+    $('#new').on("click", function() {
+      $('#new-item').foundation("reveal","open");
+    });
+
+    $('.select-feed').on('change',loadItems);
+    $('.select-type').on('change',loadItems);
+    $('.select-condition').on('change',loadItems);
+    $('.max-cost').on('change',loadItems);
+
     $('.button').on("click", function() {
       switch ($(this).attr("value")) {
         case 'freepile':
@@ -28,4 +38,13 @@
       };
     });
   });
-
+  function loadItems() {
+    var data = {
+      type: $('.select-type').val(),
+      filter: $('.select-feed').val(),
+      max_cost: $('.max-cost').val(),
+      condition: $('.select-condition').val(),
+      topic: $('.select-tag').val()
+    };
+    $.get("#{filter_items_path}", data);
+  }
