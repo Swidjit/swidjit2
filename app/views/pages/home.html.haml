@@ -1,5 +1,9 @@
 #new
   %button new item
+
+=render @claims
+
+
 -@event = Event.new
 -@event.spots.build
 =form_for @event, :url=>events_path, :method => :post do |f|

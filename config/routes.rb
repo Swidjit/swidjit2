@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   end
   resources :claims, :only => [:create, :destroy] do
     post 'accept'
-    post 'finalize'
+    post 'deny'
+    post 'payment'
   end
   resources :items do
     resources :watches, :only => [:create]

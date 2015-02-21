@@ -8,8 +8,25 @@ class ClaimsController < ApplicationController
 
   end
 
+  def accept
+    @claim = Claim.find(params[:claim_id])
+    if params[:claim_condition] == "payment"
+      @claim.update_attribute(:claim_status,"pending_payment")
+    else
+      @claim.update_attribute(:claim_status,"accepted")
+    end
+    #send message to user that claim has not been accepted
+  end
+
   def destroy
      @claim = Claim.find(params[:id])
+     @item = @claim.item
+     @claim.destroy
+  end
+
+  def deny
+     @claim = Claim.find(params[:claim_id])
+     #send message to user that claim has not been accepted
      @item = @claim.item
      @claim.destroy
   end
