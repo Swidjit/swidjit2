@@ -13,6 +13,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :charges do
+    collection do
+      post 'transfer'
+    end
+  end
+
   resources :conversations, :only => [:create,:show,:index, :destroy] do
     resources :messages, :only => [:create]
   end
@@ -24,6 +30,7 @@ Rails.application.routes.draw do
     post 'accept'
     post 'deny'
     post 'payment'
+    post 'finish_payment'
   end
   resources :items do
     resources :watches, :only => [:create]

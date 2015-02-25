@@ -1,0 +1,5 @@
+#deposit-form.reveal-modal{:reveal_id => ""}
+  you don't haven enough, you will have to withdraw some money
+
+  = form_tag claim_finish_payment_path(@claim.id, :amount => @cost.value) do
+    %script.stripe-button{"data-amount" => @cost.value*100, "data-description" => "A month's subscription", "data-key" => Rails.configuration.stripe[:publishable_key], :src => "https://checkout.stripe.com/checkout.js"}

@@ -1,1 +1,3 @@
-alert("you made a patment");
+var div = $('#claim_#{@claim.id}').parent();
+$('#claim_#{@claim.id}').remove();
+div.append("#{j render @claim}");

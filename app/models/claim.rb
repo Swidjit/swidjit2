@@ -3,6 +3,7 @@ class Claim < ActiveRecord::Base
   belongs_to :user
   after_save :notify, :only => [:accept]
   after_save :message_item_owner
+  after_save :add_transaction, :only => [:create]
 
   def message_item_owner
 
@@ -28,5 +29,17 @@ class Claim < ActiveRecord::Base
     n.action = "claimed"
     n.init_user_id = self.user_id
     n.save
+  end
+
+  def add_transaction
+    t = Transaction.new
+    t.value = 0.02
+    t.currency = "usd"
+    t.item_id = self.item.id
+    t.user_id = self.user.id
+    t.category_id = 1
+    t.reason = "claim"
+    t.transaction_status = "unpaid"
+    t.save
   end
 end

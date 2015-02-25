@@ -23,7 +23,7 @@
             %li.active
               = link_to "Log out", destroy_session_path(:user), :method => :delete
         %li
-          =image_tag current_user.pic.url(:thumb), :size => '60x60'
+          -#=image_tag current_user.pic.url(:thumb), :size => '60x60'
     -else
       %ul.right
         %li.active

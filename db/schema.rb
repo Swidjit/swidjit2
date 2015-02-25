@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150221210315) do
+ActiveRecord::Schema.define(version: 20150225165857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(version: 20150221210315) do
     t.integer "user_id"
     t.integer "value"
     t.string  "currency"
+  end
+
+  create_table "categories", force: true do |t|
+    t.string "name"
+    t.string "description"
+    t.float  "rate",            default: 0.0
+    t.string "category_status"
   end
 
   create_table "claims", force: true do |t|
@@ -209,6 +216,18 @@ ActiveRecord::Schema.define(version: 20150221210315) do
     t.string "title"
     t.string "description"
     t.string "term_type"
+  end
+
+  create_table "transactions", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "category_id"
+    t.string   "reason"
+    t.integer  "item_id"
+    t.float    "value"
+    t.string   "currency"
+    t.string   "transaction_status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "transfers", force: true do |t|

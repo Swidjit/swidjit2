@@ -26,6 +26,7 @@ gem 'aws-sdk', '< 2.0'
 gem 's3_direct_upload'
 gem 'geocoder'
 gem 'acts_as_commentable_with_threading'
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 
 group :assets do
   gem 'sass-rails', '~> 4.0.3'
