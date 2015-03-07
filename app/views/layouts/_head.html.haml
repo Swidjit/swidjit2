@@ -17,6 +17,8 @@
           =link_to current_user.username, profile_path(current_user.username)
           %ul.dropdown
             %li
+              =link_to "invoices", invoices_user_path(current_user)
+            %li
               =link_to "messages", user_conversations_path(current_user)
             %li
               =link_to "settings", edit_user_path(current_user)

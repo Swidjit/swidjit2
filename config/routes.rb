@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     member do
       post 'upload_file'
       post 'update_tags'
+      get 'invoices', :as => 'invoices'
     end
     collection do
       post 'autocomplete'
@@ -31,6 +32,15 @@ Rails.application.routes.draw do
     post 'deny'
     post 'payment'
     post 'finish_payment'
+  end
+
+  resources :invoices do
+    member do
+      post 'pay'
+    end
+    collection do
+      post 'pay'
+    end
   end
   resources :items do
     resources :watches, :only => [:create]

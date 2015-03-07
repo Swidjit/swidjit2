@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
 
   has_many :subscriptions
   has_many :transactions
+  has_many :invoices
 
   has_many :messages
   has_many :conversations
@@ -46,5 +47,9 @@ class User < ActiveRecord::Base
     else
       where(conditions).first
     end
+  end
+
+  def invoice_total
+    self.invoices.where(:invoice_status => "unpaid").sum(:value)
   end
 end

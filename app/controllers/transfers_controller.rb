@@ -3,7 +3,6 @@ class TransfersController < ApplicationController
   respond_to :html, :json
 
   def pay
-    # Amount in cents
     @amount = params[:amount].to_i*100
 
     puts params
@@ -22,7 +21,7 @@ class TransfersController < ApplicationController
       :currency    => 'usd'
     )
 
-    puts charge
+
 
 
   rescue Stripe::CardError => e

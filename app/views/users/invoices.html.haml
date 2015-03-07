@@ -1,0 +1,7 @@
+%h5 Your Invoices
+=render @invoices
+
+-if current_user.invoice_total > 0.5
+  = form_tag pay_invoices_path(:amount => current_user.invoice_total) do
+    %script.stripe-button{"data-label"=> "Pay","data-amount" => current_user.invoice_total*100, "data-description" => "A month's subscription", "data-key" => Rails.configuration.stripe[:publishable_key], :src => "https://checkout.stripe.com/checkout.js"}
+

@@ -1,0 +1,7 @@
+.invoice[invoice]
+  =invoice.value
+  =invoice.invoice_status
+  -unless invoice.invoice_status == "paid"
+    = form_tag pay_invoice_path(invoice.id, :amount => invoice.value) do
+      %script.stripe-button{"data-label"=> "Pay","data-amount" => invoice.value*100, "data-description" => "A month's subscription", "data-key" => Rails.configuration.stripe[:publishable_key], :src => "https://checkout.stripe.com/checkout.js"}
+

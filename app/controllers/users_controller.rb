@@ -47,4 +47,8 @@ class UsersController < ApplicationController
     render file: 'users/search.json.rabl'
   end
 
+  def invoices
+    @invoices = current_user.invoices
+  end
+
 end
