@@ -23,6 +23,7 @@ class Item < ActiveRecord::Base
   acts_as_taggable_on :topic
 
   after_save :notify, :only => [:update]
+  after_save :add_transaction, :only => [:create]
 
   scope :status, -> (status) { where publish_status: status }
   scope :popular, ->  { order(importance: :desc) }
@@ -37,6 +38,24 @@ class Item < ActiveRecord::Base
   #located nearby
   #matching interests
 
+  def add_transaction
+    puts 'jhey'
+    puts self.class
+    puts self
+    puts self.user
+    puts user
+    if self.class == Event
+      t = Transaction.new
+      t.value = 0.05
+      t.currency = "usd"
+      t.item_id = self.id
+      t.user_id = self.user.id
+      t.category_id = 3
+      t.reason = "posting"
+      t.transaction_status = "unpaid"
+      t.save
+    end
+  end
 
   def notify
     n = Notification.new

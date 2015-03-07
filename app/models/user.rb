@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :claims
 
   has_many :subscriptions
+  has_many :transactions
 
   has_many :messages
   has_many :conversations

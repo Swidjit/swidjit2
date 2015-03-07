@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
 
   def create
-    item = Event.create(item_params)
+    item = Event.new(item_params)
     current_user.items << item
     item.topic_list = item_params[:topic_list]
     item.save

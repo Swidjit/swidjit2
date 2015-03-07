@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225165857) do
+ActiveRecord::Schema.define(version: 20150225200855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,17 @@ ActiveRecord::Schema.define(version: 20150225165857) do
     t.string   "pic_content_type"
     t.integer  "pic_file_size"
     t.datetime "pic_updated_at"
+  end
+
+  create_table "invoices", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.string   "invoice_status"
+    t.float    "value"
+    t.string   "currency"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "items", force: true do |t|
@@ -223,6 +234,7 @@ ActiveRecord::Schema.define(version: 20150225165857) do
     t.integer  "category_id"
     t.string   "reason"
     t.integer  "item_id"
+    t.integer  "invoice_id"
     t.float    "value"
     t.string   "currency"
     t.string   "transaction_status"

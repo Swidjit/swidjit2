@@ -5,6 +5,7 @@ class CreateTransactions < ActiveRecord::Migration
       t.belongs_to :category
       t.string :reason
       t.belongs_to :item
+      t.belongs_to :invoice
       t.float :value
       t.string :currency
       t.string :transaction_status
