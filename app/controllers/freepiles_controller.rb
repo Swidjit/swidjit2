@@ -19,6 +19,7 @@ class FreepilesController < ApplicationController
 
   def index
     @freepiles = Freepile.all
+    @requests = Request.where(:item_type => "freepile")
   end
 
   def show

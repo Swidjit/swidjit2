@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   has_many :comments, :dependent => :delete_all
   has_many :responses
+  has_many :requests
 
   has_many :flags
   has_many :offers

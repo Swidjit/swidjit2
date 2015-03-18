@@ -2,7 +2,18 @@
   %button new freepile
 =render @freepiles
 
+%h4 make a request
 
+
+=form_for :request, :url => requests_path, :method => :post, :remote => :true do |f|
+  =f.text_field :title
+  =f.text_area :body
+  =f.hidden_field :item_type, :value => "freepile"
+  =f.submit
+
+%h4 requests
+#requests
+  =render @requests
 :javascript
   $(document).on('ready page:load', function(){
     $("#new-item").html("#{escape_javascript render :partial => 'freepiles/form'}");
