@@ -14,7 +14,7 @@ class FreepilesController < ApplicationController
   end
 
   def item_params
-    params.require(:freepile).permit(:title, :details, :condition, :address, :latlng, :topic_list)
+    params.require(:freepile).permit(:title, :details, :condition, :address, :latlng, :topic_list, :request_id)
   end
 
   def index

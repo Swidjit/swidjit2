@@ -1,4 +1,10 @@
 %div{:id=>"item-#{@freepile.id}"}
+  -if @freepile.request_id > 0
+    .item-is-suggestion
+      -request = Request.find(@freepile.request_id)
+      %p this item has been offered as a suggestion to your request '#{request.title}'
+      =link_to request_path(request.id), :method => :delete, :remote => :true do
+        %button great, this satifies my request!
   =@freepile.title
   #map-canvas{:style=>"height:300px;"}
   -if user_signed_in?
@@ -26,16 +32,7 @@
   =render :partial => 'items/tags', :locals=>{item:@freepile}
   #item-photo
     =render :partial => 'items/photo', :locals=>{item:@freepile}
-  =s3_uploader_form callback_url: upload_file_item_path(@freepile), remote: :true, callback_param: "item[image_url]", id: "s3-uploader" do
-    %div#test
-      .wrapper
-        =file_field_tag :file
-      %button upload image
-  %script#template-upload{:type => "text/x-tmpl"}
-    .upload{:id => "file-{%=o.unique_id%}"}
-      {%=o.name%}
-      .progress
-        .bar{:style => "width: 0%"}
+
 
   #comments
     %h5 Comments

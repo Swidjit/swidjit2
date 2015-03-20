@@ -10,8 +10,12 @@ class RequestsController < ApplicationController
   end
 
   def destroy
-     @request = Request.find(params[:id])
-     @request.destroy
+    Item.where(:request_id => params[:id]).update_all(request_id: 0)
+    @request = Request.find(params[:id])
+    @request.destroy
+    respond_to do |format|
+      format.js
+    end
   end
 
   def request_params

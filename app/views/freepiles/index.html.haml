@@ -21,5 +21,10 @@
       $('#new-item').foundation("reveal","open");
     });
 
+    $('.fulfill').on("click", function() {
+      $('#new-item').foundation("reveal","open");
+      $('#freepile_request_id').val($(this).val());
+
+    });
 
   });
