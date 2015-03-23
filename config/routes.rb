@@ -54,10 +54,12 @@ Rails.application.routes.draw do
     collection do
       get 'autocomplete_topic_search'
       get 'filter'
+      get 'autocomplete_item_title'
     end
     member do
       post 'upload_file'
       post 'create_or_destroy_reaction'
+      post 'set_request_id'
     end
 
   end

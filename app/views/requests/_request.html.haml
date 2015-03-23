@@ -7,4 +7,6 @@
       = render :partial => 'comments/comment', :collection => request.comment_threads.order('created_at desc'), :as => :comment
     -if user_signed_in?
       = render :partial => 'comments/form', :locals => { :comment => Comment.build_from(request, current_user.id, "") }
-  %button.fulfill{:value => request.id} fulfill
+  .suggest-buttons
+    %button.fulfill{:value => request.id} fulfill
+    %button.notify{:value => request.id} fulfill with existing item

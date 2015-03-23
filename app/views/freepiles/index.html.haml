@@ -14,6 +14,18 @@
 %h4 requests
 #requests
   =render @requests
+  #autocomplete-item{:value=>20}
+    =autocomplete_field_tag 'item-title-autocomplete', '', autocomplete_item_title_items_path, :size => 75
+  :javascript
+    $('#item-title-autocomplete').bind('railsAutocomplete.select', function(event, data){
+      /* Do something here */
+     var post_data = {
+      request_id: $(this).parent().attr("value")
+     };
+     $('#autocomplete-item').appendTo($('#requests'));
+     $.post('items/'+data.item.id+'/set_request_id', post_data);
+    });
+
 :javascript
   $(document).on('ready page:load', function(){
     $("#new-item").html("#{escape_javascript render :partial => 'freepiles/form'}");
@@ -26,5 +38,14 @@
       $('#freepile_request_id').val($(this).val());
 
     });
+    $('.notify').on("click", function() {
+      $('#autocomplete-item').appendTo($(this).parent());
+      $('#autocomplete-item').attr("value",$(this).attr("value"));
+    });
+
+
+     // Below is the name of the textfield that will be autocomplete
+
+
 
   });

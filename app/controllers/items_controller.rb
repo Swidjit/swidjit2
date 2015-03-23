@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-
+  autocomplete :item, :title
 
   def index
     @items = Item.where(nil)
@@ -29,6 +29,15 @@ class ItemsController < ApplicationController
     @item = Item.unscoped.find(params[:id])
     @item.images << Image.create(:pic => URI.parse(URI.unescape(params['url'])))
 
+  end
+
+  def set_request_id
+    @item = Item.unscoped.find(params[:id])
+    @item.update_attribute(:request_id,params[:request_id])
+    @request_id = params[:request_id]
+    respond_to do |format|
+      format.js
+    end
   end
 
   def update
