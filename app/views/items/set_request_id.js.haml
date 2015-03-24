@@ -1,2 +1,2 @@
-$('#request_#{@request_id} .suggest-buttons').remove();
+$('#request_#{@request_id} .suggestions').append("#{j render :partial=>'requests/suggestion', :locals => {suggestion:@item}}")
 $('#request_#{@request_id}').append('Thanks, your suggestion has been saved.');

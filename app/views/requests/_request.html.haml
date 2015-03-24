@@ -10,3 +10,7 @@
   .suggest-buttons
     %button.fulfill{:value => request.id} fulfill
     %button.notify{:value => request.id} fulfill with existing item
+  .suggestions
+    -request.suggestions.each do |item|
+      =link_to item.title, item_path(item)
+      %br

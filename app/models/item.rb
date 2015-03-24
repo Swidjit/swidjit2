@@ -24,6 +24,7 @@ class Item < ActiveRecord::Base
 
   after_save :notify, :only => [:update]
   after_save :add_transaction, :only => [:create]
+  before_save :notify_requester, if: :request_id_changed?
 
   scope :status, -> (status) { where publish_status: status }
   scope :popular, ->  { order(importance: :desc) }
@@ -64,4 +65,14 @@ class Item < ActiveRecord::Base
     n.init_user_id = self.user_id
     n.save
   end
+
+  def notify_requester
+    puts "request"
+    n = Notification.new
+    n.item = self
+    n.action = "suggested"
+    n.init_user_id = self.user_id
+    n.save
+  end
+
 end

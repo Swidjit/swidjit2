@@ -1,6 +1,9 @@
 class Request < ActiveRecord::Base
 
   belongs_to :user
-  has_many :suggestions
   acts_as_commentable
+
+  def suggestions
+    Item.where(:request_id => self.id)
+  end
 end
