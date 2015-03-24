@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   resources :requests, :only => [:create,:destroy]
 
-  resources :websites, :only => [] do
+  resources :websites, :only => [:create] do
     collection do
       post 'scrape'
     end

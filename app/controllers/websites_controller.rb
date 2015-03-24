@@ -1,4 +1,25 @@
 class WebsitesController < ApplicationController
+  def create
+    item = Website.create(item_params)
+    current_user.items << item
+    item.topic_list = item_params[:topic_list]
+    item.save
+
+  end
+
+  def new
+    @website = Website.new
+  end
+
+  def item_params
+    params.require(:website).permit(:details, :topic_list, urls_attributes: [:url, :title, :description, :image_url] )
+  end
+
+  def index
+    @websites = Website.all
+    puts @websites
+  end
+
 
   def scrape
     if params[:url]
@@ -6,8 +27,10 @@ class WebsitesController < ApplicationController
                                 :warn_level => :store,
                                 :connection_timeout => 5, :read_timeout => 5,
                                 :headers => { 'User-Agent' => user_agent, 'Accept-Encoding' => 'identity' })
-    else
-      redirect "/"
+      if @page.response.nil?
+        render 'scrape_failed'
+      else
+      end
     end
   end
 

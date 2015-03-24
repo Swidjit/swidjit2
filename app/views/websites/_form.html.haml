@@ -1,13 +1,25 @@
-#website-form
-  =text_field_tag :test, "", :id=>'testing'
-  %button#submit submit
-#preview
+-@website = Website.new
+-@website.urls.build
+=form_for @website, :method => :post, :remote=> :true do |f|
+  =f.fields_for :urls do |f1|
+    =f1.text_field :url, :id => "url"
+    #url-info{:style=>"display:none;"}
+      =f1.text_field :title, :id => "url-title"
+      =f1.text_field :description, :id => "url-description"
+      =f1.hidden_field :image_url, :id => "url-image"
+  =f.submit "submit"
+
+#message
 :javascript
-  $('#submit').on('click',function() {
-    var data = {
-      url:$('#testing').val()
-    }
-    $('#preview').html("loading...");
-    $.post('#{scrape_websites_path}',data)
+  $('#url').focus();
+  $('#url').on('paste',function() {
+    setTimeout(function () {
+      var data = {
+        url:$('#url').val()
+      }
+      $('#preview').html("loading...");
+      $.post('#{scrape_websites_path}',data);
+    }, 100);
+
   })
 

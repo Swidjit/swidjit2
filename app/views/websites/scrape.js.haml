@@ -1,1 +1,5 @@
-$('#preview').html('#{j render :partial => 'urls/scrape', :locals => {page:@page}}');
+$('#url-info').show();
+$('#url-title').val('#{@page.title}');
+$('#url-description').val('#{j @page.description}');
+-if @page.images.any?
+  $('#url-image').val('#{@page.images.best}');

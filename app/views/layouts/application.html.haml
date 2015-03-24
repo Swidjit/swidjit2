@@ -23,7 +23,7 @@
       .large-3.columns
         #new
           %button new item
-        =select_tag :type, options_for_select([ "all","products", "events", "questions","freepiles","topics" ], "all"), :class => 'select-type'
+        =select_tag :type, options_for_select([ "all","products", "events", "questions","freepiles","topics", "websites" ], "all"), :class => 'select-type'
 
         =select_tag :filter, options_for_select([ "all","popular", "followed", "upcoming","nearby", "interests" ], "all"), :class => 'select-feed'
         =number_field_tag :max_cost, nil, :min => 5, :class => 'max-cost'

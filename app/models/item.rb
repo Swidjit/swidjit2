@@ -10,9 +10,11 @@ class Item < ActiveRecord::Base
   has_many :occurrences, :dependent => :destroy, :foreign_key => :item_id
   has_many :rsvps, :dependent => :destroy
   has_many :spots, :dependent => :destroy
+  has_many :urls, :dependent => :destroy
   has_many :flags, :dependent => :destroy
   has_many :claims, :dependent => :delete_all
   accepts_nested_attributes_for :spots
+  accepts_nested_attributes_for :urls
   accepts_nested_attributes_for :recurrences
   has_many :prices, :dependent => :delete_all, :foreign_key => :item_id
   geocoded_by :address   # can also be an IP address
