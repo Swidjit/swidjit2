@@ -5,6 +5,7 @@
   .button{:value=>"question"} question
   .button{:value=>"event"} event
   .button{:value=>"product"} product
+  .button{:value=>"website"} website
 
 #deposit
 :javascript
@@ -35,6 +36,9 @@
           break;
         case 'product':
           $("#new-item").html("#{escape_javascript render :partial => 'products/form'}");
+          break;
+        case 'website':
+          $("#new-item").html("#{escape_javascript render :partial => 'websites/form'}");
           break;
       };
     });

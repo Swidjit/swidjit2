@@ -1,0 +1,13 @@
+#website-form
+  =text_field_tag :test, "", :id=>'testing'
+  %button#submit submit
+#preview
+:javascript
+  $('#submit').on('click',function() {
+    var data = {
+      url:$('#testing').val()
+    }
+    $('#preview').html("loading...");
+    $.post('#{scrape_websites_path}',data)
+  })
+

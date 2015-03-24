@@ -1,0 +1,12 @@
+- if page.exceptions.any?
+  %h2 Ooops!!! MetaInspector couldn't scrape this page and complained about:
+  %ul
+    - page.exceptions.uniq {|e| e.message}.each do |exception|
+      %li= exception
+- else
+  -unless page.best_title.nil? || page.best_title.length == 0
+    =page.best_title
+  -unless page.description.nil? || page.description.length == 0
+    =page.description
+  -if @page.images.any?
+    =image_tag @page.images.best, class: "scraped-image"

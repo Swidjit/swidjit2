@@ -19,6 +19,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'rabl'
 gem 'formtastic', '~> 3.0'
 
+gem 'metainspector'
+
 gem 'foundation-rails', '5.4.5'
 gem 'foundation-icons-sass-rails'
 gem 'devise'
