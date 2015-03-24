@@ -6,6 +6,7 @@
   .button{:value=>"event"} event
   .button{:value=>"product"} product
   .button{:value=>"website"} website
+  .button{:value=>"swap"} swap
 
 #deposit
 :javascript
@@ -39,6 +40,9 @@
           break;
         case 'website':
           $("#new-item").html("#{escape_javascript render :partial => 'websites/form'}");
+          break;
+        case 'swap':
+          $("#new-item").html("#{escape_javascript render :partial => 'swap_products/form'}");
           break;
       };
     });

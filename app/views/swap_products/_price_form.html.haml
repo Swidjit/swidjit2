@@ -1,0 +1,9 @@
+-@item.prices.build
+#price-form
+  %p to help facilitate swapping, please add an estimated value for the product listed
+  =form_for @item, :url=>swap_product_path(@item), :method => :patch do |f|
+    =f.text_field :title
+    =f.fields_for :prices do |f1|
+      =f1.number_field :value, :class => "answer"
+      =f1.select :currency, ["usd","ithacash"]
+    =f.submit "set price", :class=>"button"

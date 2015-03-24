@@ -1,4 +1,4 @@
-class Product < Item
-  has_many :offers, :dependent => :delete_all, :foreign_key => :item_id
+class Product < MarketItem
+
 
 end

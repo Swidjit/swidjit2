@@ -1,0 +1,4 @@
+class SwapProduct < MarketItem
+
+
+end

@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   resources :users, :only => [:edit, :update] do
     resources :conversations, :only => :index
   end
+
   resources :claims, :only => [:create, :destroy] do
     post 'accept'
     post 'deny'
@@ -79,6 +80,7 @@ Rails.application.routes.draw do
   resources :products do
     resources :offers, :only => [:create, :destroy]
   end
+  resources :swap_products
   resources :questions do
     resource :response, :only => [:create, :destroy]
   end

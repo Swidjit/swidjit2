@@ -1,0 +1,9 @@
+%div{:id=>"item_#{swap_product.id}"}
+  %h4=swap_product.title
+  =link_to swap_product.details, swap_product_path(swap_product)
+  %br
+  price:
+  =swap_product.prices.first.value
+  =swap_product.prices.first.currency
+
+%br
