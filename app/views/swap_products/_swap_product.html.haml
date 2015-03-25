@@ -6,4 +6,14 @@
   =swap_product.prices.first.value
   =swap_product.prices.first.currency
 
+  %button.show-rsvp-form make offer
+
+  .rsvp-form{:style=>"display:none;"}
+    =form_for :swap_offer, :url => swap_product_swap_offers_path(swap_product.id), :method => :post, :remote => :true do |f|
+      =f.hidden_field :productsA, :value => swap_product.id
+      =f.hidden_field :productsB, :value => "3,4,5"
+      =f.hidden_field :userA_id, :value => swap_product.user.id
+      =f.hidden_field :userB_id, :value => current_user.id
+      =f.submit "submit offer", :class=> "button tiny"
+.offers
 %br

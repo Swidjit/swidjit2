@@ -80,7 +80,9 @@ Rails.application.routes.draw do
   resources :products do
     resources :offers, :only => [:create, :destroy]
   end
-  resources :swap_products
+  resources :swap_products do
+    resources :swap_offers, :only => [:create, :destroy]
+  end
   resources :questions do
     resource :response, :only => [:create, :destroy]
   end

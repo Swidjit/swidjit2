@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150324114045) do
+ActiveRecord::Schema.define(version: 20150325000007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -209,6 +209,17 @@ ActiveRecord::Schema.define(version: 20150324114045) do
     t.integer  "subscription_id",   null: false
     t.string   "subscription_type", null: false
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "swap_offers", force: true do |t|
+    t.text     "productsA",  default: [], array: true
+    t.text     "productsB",  default: [], array: true
+    t.text     "comment"
+    t.integer  "userA_id"
+    t.integer  "userB_id"
+    t.datetime "expiration"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
